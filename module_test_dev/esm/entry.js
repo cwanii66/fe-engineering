@@ -15,4 +15,4 @@ console.log(c);
 // console.log(arguments)
 
 
-// console.log(this)   esmodule -> undefined
+// console.log(this)   esmodule -> this === undefined
