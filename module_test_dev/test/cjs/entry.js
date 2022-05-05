@@ -1,5 +1,6 @@
-let { counter, incCounter }= require('./test.js');
+// delete require.cache[require.resolve('./test.js')];
+let mod = require('./test.js');
 
-console.log(counter);
-incCounter();
-console.log(counter);
+console.log(mod.counter);
+mod.incCounter();
+console.log(mod.counter);

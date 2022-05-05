@@ -4,6 +4,8 @@ function incCounter() {
 }
 
 module.exports = {
-    counter,
+    get counter() {
+        return counter;
+    },
     incCounter
 }
