@@ -189,10 +189,10 @@ module.exports = function (item) {
 
 /***/ }),
 
-/***/ "./src/index.css":
-/*!***********************!*\
-  !*** ./src/index.css ***!
-  \***********************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./src/index.css":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./src/index.css ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -624,9 +624,9 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
+/* harmony import */ var style_loader_css_loader_index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! style-loader!css-loader!./index.css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./src/index.css");
 /* harmony import */ var _test_cw__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./test.cw */ "./src/test.cw");
-
+ // call loader inline
 
 
 console.log('Hello webpack');

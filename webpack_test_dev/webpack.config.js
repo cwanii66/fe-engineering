@@ -11,13 +11,6 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: [
-                    { loader: 'style-loader' },
-                    { loader: 'css-loader' }
-                ]
-            },
-            {
                 test: /\.cw$/,
                 use: [
                     { loader: path.resolve(__dirname, './loader/cw-loader.js') }
