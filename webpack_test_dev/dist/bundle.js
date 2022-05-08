@@ -636,4 +636,5 @@ console.log(_test_cw__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 /******/ })()
 ;
+/* FooterPlugin is running... */
 //# sourceMappingURL=bundle.js.map
