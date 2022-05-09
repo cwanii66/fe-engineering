@@ -1,4 +1,6 @@
 import './css/public.css';
 import './css/index.css';
 
-console.log('ZBestPC');
+import 'jquery'
+import './js/public';
+import './js/nav';
