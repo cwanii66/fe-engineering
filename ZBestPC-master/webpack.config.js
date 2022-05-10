@@ -38,9 +38,13 @@ const config = {
             template: path.join(__dirname, 'src', 'index.html'),
             filename: 'index.html'
         }),
+        new HtmlWebpackPlugin({
+            filename: 'login.html',
+            template: path.resolve(__dirname, 'src/login.html')
+        }),
         new webpack.ProvidePlugin({
             $: 'jquery',
-            JQuery: 'jquery'
+            jQuery: 'jquery'
         }),
     ],
 };
