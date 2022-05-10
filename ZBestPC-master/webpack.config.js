@@ -58,6 +58,25 @@ const config = {
             }),
             new CssMinimizerPlugin(),
         ],
+        splitChunks: {
+            chunks: 'all',
+            minSize: 20000, // 压缩前的最小模块大小
+            name: 'common',
+            cacheGroups: {
+                // 默认的规则不会打包，需要单独定义
+                jquery: {
+                    // 抽离jquery
+                    name: 'jquery',
+                    test: /jquery\.js/,
+                    chunks: 'all',
+                },
+                'lodash-es': {
+                    name: 'lodash-es',
+                    test: /lodash-es/,
+                    chunks: 'all'
+                }
+            }
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({

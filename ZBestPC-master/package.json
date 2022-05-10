@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "flexslider": "^2.7.2",
-    "jquery": "^3.6.0",
-    "lodash": "^4.17.21"
+    "jquery": "^3.6.0"
   }
 }
