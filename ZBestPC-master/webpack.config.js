@@ -4,7 +4,8 @@ const webpack = require('webpack');
 const config = {
     mode: 'development',
     entry: {
-        bundle: './src/index.js'
+        index: './src/index.js',
+        login: './src/login.js'
     },
     output: {
         filename: 'js/[name].js',
@@ -36,11 +37,13 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'src', 'index.html'),
-            filename: 'index.html'
+            filename: 'index.html',
+            chunks: ['index']
         }),
         new HtmlWebpackPlugin({
             filename: 'login.html',
-            template: path.resolve(__dirname, 'src/login.html')
+            template: path.resolve(__dirname, 'src/login.html'),
+            chunks: ['login']
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',
