@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 const config = {
     mode: 'development',
@@ -44,6 +46,18 @@ const config = {
                 }
             }
         ]
+    },
+    optimization: {
+        minimize: true, // compress at development mode
+        usedExports: true, // treeshaking
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    sourceMap: true
+                }
+            }),
+            new CssMinimizerPlugin(),
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
