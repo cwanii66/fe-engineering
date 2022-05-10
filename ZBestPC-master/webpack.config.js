@@ -44,6 +44,13 @@ const config = {
                 generator: {
                     filename: 'images/[name].[hash:6][ext]',
                 }
+            },
+            {
+                test: /\.ejs/,
+                loader: 'ejs-loader',
+                options: {
+                    esModule: false
+                }
             }
         ]
     },
