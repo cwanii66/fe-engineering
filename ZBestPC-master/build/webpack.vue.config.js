@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 const config = {
     mode: 'development',
@@ -32,7 +33,7 @@ const config = {
                 ]
             },
             {
-                test: /\.(png|svg|gif|jpg|jpeg)$/i,
+                test: /\.(png|svg|gif|jpg|jpeg)$/i, // deal with image assests
                 type: 'asset',
                 parser: {
                     dataUrlCondition: {
@@ -59,6 +60,7 @@ const config = {
         splitChunks: {
             chunks: 'all',
             minSize: 30 * 1024,
+            name: 'common',
             cacheGroups: {
 
             }
@@ -69,8 +71,9 @@ const config = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../public/index.html'),
             filename: 'index.html',
-            chunks: ['index']
-        })
+            chunks: ['main']
+        }),
+        new VueLoaderPlugin(),
     ]
 };
 

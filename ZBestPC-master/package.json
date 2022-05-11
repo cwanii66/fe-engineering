@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "serve": "webpack-dev-server --config build/webpack.config.js",
-    "build": "webpack --config build/webpack.config.js"
+    "serve:vue": "webpack-dev-server --config build/webpack.vue.config.js",
+    "build": "webpack --config build/webpack.config.js",
+    "build:vue": "webpack --config build/webpack.vue.config.js"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
