@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
     mode: 'development',
@@ -59,10 +60,14 @@ const config = {
         ],
         splitChunks: {
             chunks: 'all',
-            minSize: 30 * 1024,
+            minSize: 100 * 1024,
             name: 'common',
             cacheGroups: {
-
+                vue: {
+                    test: /[\\/]node_modules[\\/](vue)[\\/]/,
+                    name: 'vue',
+                    chunks: 'all',
+                }
             }
         }
     },
@@ -72,6 +77,18 @@ const config = {
             template: path.resolve(__dirname, '../public/index.html'),
             filename: 'index.html',
             chunks: ['main']
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, '../src/img'),
+                    to: path.resolve(__dirname, '../dist/img')
+                },
+            ]
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].css',
+            chunkFilename: 'css/[name].chunk.css'
         }),
         new VueLoaderPlugin(),
     ]

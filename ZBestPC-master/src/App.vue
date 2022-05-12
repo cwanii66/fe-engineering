@@ -1,15 +1,13 @@
 <template>
   <div id="app">
-    {{ message }}
+    <h1>Header</h1>
+    <router-view></router-view>
+    <h1>Footer</h1>
   </div>
 </template>
 
 <script setup>
-  import { ref } from '@vue/reactivity';
 
-  const message = ref('');
-
-  message.value = 'Hello World!';
 </script>
 
 <style>
