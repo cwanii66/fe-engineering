@@ -77,8 +77,13 @@ const config = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../public/index.html'),
-            filename: 'index.html',
-            chunks: ['main']
+            filename: 'home.html',
+            chunks: ['home']
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../public/index.html'),
+            filename: 'login.html',
+            chunks: ['login']
         }),
         new CopyPlugin({
             patterns: [
