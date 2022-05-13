@@ -7,7 +7,8 @@
 					<h1 class="fl"><a href="index.html"><img src="img/logo.png"/></a></h1>
 					<div class="fr clearfix" id="top1">
 						<p class="fl">
-							<a href="#" id="login">登录</a>
+							<!-- <a @click="jumpToLogin" id="login">登录</a> -->
+							<a href="login.html" id="login">登录</a>
 							<a href="#" id="reg">注册</a>
 						</p>
 						<form action="#" method="get" class="fl">
@@ -405,15 +406,22 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+
 import '../css/public.css';
 import '../css/index.css';
 
-import '../js/jquery-1.12.4.min';
-import '../js/public';
+import 'jquery';
 import '../js/nav';
-import '../js/jquery.flexslider-min';
+import '../js/public';
+
+const router = useRouter();
+function jumpToLogin() {
+	// router.push({ name: 'Login' })
+	router.push('/login')
+}
 </script>
 
-<style lang='scss'>
+<style>
 
 </style>

@@ -4,7 +4,7 @@ import router from '../src/router/index'
 const app = createApp(App)
 
 app.use(router)
-app.mount('#app')
+    .mount('#app')
 
 
 

@@ -11,7 +11,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const config = {
     mode: 'development',
     entry: {
-        main: path.resolve(__dirname, '../src/main.js')
+        home: path.resolve(__dirname, '../src/mpa/home.js'),
+        login: path.resolve(__dirname, '../src/mpa/login.js')
     },
     output: {
         filename: 'js/[name].js',
