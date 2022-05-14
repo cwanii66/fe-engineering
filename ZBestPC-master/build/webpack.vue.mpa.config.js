@@ -69,6 +69,16 @@ const config = {
                     test: /[\\/]node_modules[\\/](vue)[\\/]/,
                     name: 'vue',
                     chunks: 'all',
+                },
+                jquery: {
+                    test: /jquery\.js/,
+                    name: 'jquery',
+                    chunks: 'all'
+                },
+                'lodash-es': {
+                    test: /lodash-es/,
+                    name: 'lodash-es',
+                    chunks: 'all'
                 }
             }
         }
