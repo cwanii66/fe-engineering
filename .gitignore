@@ -103,3 +103,4 @@ typings/
 dist
 
 .DS_Store
+.github

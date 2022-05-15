@@ -10,3 +10,5 @@ tree.md
 *.idea
 
 elm/
+
+.github
