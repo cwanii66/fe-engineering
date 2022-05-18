@@ -15,6 +15,9 @@ var port = process.env.PORT || config.dev.port
 var server = express()
 var compiler = webpack(webpackConfig)
 
+// 核心用途
+// 1. 修改webpack fs 为MemoryFileSystem，并将构建结果全部存储在内存中
+// 2. 实现请求中间件，处理资源请求，并到内存中查询资源文件返回
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
     stats: {
@@ -23,6 +26,8 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
     }
 })
 
+// 核心功能：实现模块热更新
+// 
 var hotMiddleware = require('webpack-hot-middleware')(compiler)
     // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function(compilation) {
