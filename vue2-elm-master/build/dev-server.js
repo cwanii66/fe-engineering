@@ -27,7 +27,9 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 })
 
 // 核心功能：实现模块热更新
-// 
+// 复杂点：
+// 1. 客户端和服务端同时配合实现(HotModuleReplacementPlugin AND WebpackHotMiddleware)
+// 2. 客户端和服务端双向通信的机制
 var hotMiddleware = require('webpack-hot-middleware')(compiler)
     // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function(compilation) {
