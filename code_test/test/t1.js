@@ -40,3 +40,30 @@ function co(gen) {
         }
     });
 }
+
+// 1. cancel promise
+
+class CancelToken {
+    constructor(cancelFn) {
+        this.promise = new Promise((resolve, reject) => {
+            cancelFn(resolve)
+        })
+    }
+}
+
+// 2. trackable promise
+class TrackablePromise extends Promise {
+    constructor(executor) {
+        const notifyHandlers = []
+        super((resolve, reject) => {
+            return executor(resolve, reject, (status) => {
+                notifyHandlers.map(handler => handler(status))
+            })
+        })
+        this.notifyHandlers = notifyHandlers
+    }
+    notify(notifyHandler) {
+        this.notifyHandlers.push(notifyHandler)
+        return this;
+    }
+}

@@ -269,7 +269,7 @@
                 <div class="specs_list" v-if="showSpecs">
                     <header class="specs_list_header">
                         <h4 class="ellipsis">{{choosedFoods.name}}</h4>
-                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" version="1.1"class="specs_cancel" @click="showChooseList">
+                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" version="1.1" clasƒs="specs_cancel" @click="showChooseList">
                             <line x1="0" y1="0" x2="16" y2="16"  stroke="#666" stroke-width="1.2"/>
                             <line x1="0" y1="16" x2="16" y2="0"  stroke="#666" stroke-width="1.2"/>
                         </svg>
@@ -277,7 +277,7 @@
                     <section class="specs_details">
                         <h5 class="specs_details_title">{{choosedFoods.specifications[0].name}}</h5>
                         <ul>
-                            <li v-for="(item, itemIndex) in choosedFoods.specifications[0].values" :class="{specs_activity: itemIndex == specsIndex}" @click="chooseSpecs(itemIndex)">
+                            <li v-for="(item, itemIndex) in choosedFoods.specifications[0].values" :class="{ specs_activity: itemIndex == specsIndex }" @click="chooseSpecs(itemIndex)">
                                 {{item}}
                             </li>
                         </ul>
@@ -296,10 +296,10 @@
             <p class="show_delete_tip" v-if="showDeleteTip">多规格商品只能去购物车删除哦</p>
         </transition>
         <transition
-        appear
-        @after-appear = 'afterEnter'
-        @before-appear="beforeEnter"
-        v-for="(item,index) in showMoveDot"
+            appear
+            @after-appear = 'afterEnter'
+            @before-appear="beforeEnter"
+            v-for="(item,index) in showMoveDot"
         >
             <span class="move_dot" v-if="item">
                 <svg class="move_liner">
@@ -1405,7 +1405,7 @@
                                 display: flex;
                                 align-items: center;
                                 .time_spent_desc{
-                                    @include sc(.55rem, #666)
+                                    @include sc(.55rem, #666);
                                     margin-left: .15rem;
                                 }
                             }
