@@ -148,7 +148,7 @@ export default {
         margin-bottom: 0.4rem;
     }
     .citylistul{
-        li{
+        a{
             float: left;
             text-align: center;
             color: $blue;
@@ -157,7 +157,7 @@ export default {
             @include wh(25%, 1.75rem);
             @include font(0.6rem, 1.75rem);
         }
-        li:nth-of-type(4n){
+        a:nth-of-type(4n){
             border-right: none;
         }
     }
