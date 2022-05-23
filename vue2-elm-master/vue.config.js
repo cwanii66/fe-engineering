@@ -9,5 +9,9 @@ module.exports = {
                 'components': path.resolve(__dirname, './src/components')
             }
         },
+    },
+    devServer: {
+        host: "localhost",
+        port: 8080,
     }
 }
