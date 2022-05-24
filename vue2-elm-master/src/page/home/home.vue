@@ -99,6 +99,52 @@ export default {
 
 </script>
 
+<script setup>
+import { cityGuess, hotcity, groupcity } from '../../service/getData'
+import headTop from '../../components/header/head'
+
+import { ref, onMounted, computed } from 'vue'
+import { useStore } from 'vuex'
+
+let store = useStore();
+
+const guessCity = ref('')
+const guessCityid = ref('')
+const hotCity = ref([])
+const groupCity = ref({})
+
+const reload = () => {
+    window.location.reload();
+}
+
+onMounted(async () => {
+    const res = await cityGuess()
+    guessCity.value = res.name
+    guessCityid.value = res.id
+
+    // get hot city
+    hotcity().then(res => {
+        hotCity.value = res
+    })
+
+    // get all city
+    groupcity().then(res => {
+        groupCity.value = res
+    })
+})
+
+const sortgroupcity = computed(() => {
+    let sortobj = {}
+    for (let i = 65; i <= 66; i++) {
+        if (groupCity.value[String.fromCharCode(i)]) {
+            sortobj[String.fromCharCode(i)] = groupCity.value[String.fromCharCode(i)]
+        }
+    }
+    return sortobj
+})
+
+</script>
+
 <style lang="scss" scoped>
     @import '../../style/mixin';
     .head_logo{
