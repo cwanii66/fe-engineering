@@ -18,7 +18,17 @@ module.exports = {
             }
         },
         plugins: [
-            new BundleAnalyzerPlugin()
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'server',
+                analyzerHost: '127.0.0.1',
+                analyzerPort: 8888,
+                reportFilename: 'analyze.html',
+                reportTitle: () => `elm [${ Date.now() }]`,
+                statsFilename: 'stats.json',
+                statsOptions: null,
+                excludeAssets: null,
+                logLevel: 'info'
+            })
         ]
     }),
     devServer: {
