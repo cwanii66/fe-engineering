@@ -1,5 +1,6 @@
 const path = require('path')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // console.log(process.env)
 const smp = new SpeedMeasurePlugin({
@@ -41,6 +42,10 @@ module.exports = {
                 statsOptions: null,
                 excludeAssets: null,
                 logLevel: 'info'
+            }),
+            new webpack.DllReferencePlugin({
+                context: process.cwd(),
+                manifest: path.resolve(__dirname, './dll/vue-manifest.json')
             })
         ]
     }),
