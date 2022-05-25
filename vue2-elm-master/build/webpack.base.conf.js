@@ -35,24 +35,6 @@ module.exports = {
     },
     module: {
         loaders: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: [
-                {
-                    loader: 'thread-loader',
-                    options: {
-                        workers: 3
-                    }
-                },
-                {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env'],
-                        plugins: ['@babel/plugin-transform-runtime']
-                    }
-                }
-            ]
-        }, {
             test: /\.vue$/,
             loader: 'vue'
         }, {

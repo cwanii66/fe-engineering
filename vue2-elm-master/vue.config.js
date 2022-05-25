@@ -8,7 +8,9 @@ const smp = new SpeedMeasurePlugin({
     
 })
 
+// console.log("require('os').cpus()", require('os').cpus())
 module.exports = {
+    parallel: false, // vue/cli 开启thread-loader config
     configureWebpack: smp.wrap({
         resolve: {
             alias: {
