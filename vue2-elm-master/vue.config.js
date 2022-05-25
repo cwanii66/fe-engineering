@@ -19,12 +19,23 @@ module.exports = {
         },
         plugins: [
             new BundleAnalyzerPlugin({
-                analyzerMode: 'server',
+                analyzerMode: process.env.MEASUER === 'true'
+                                ?
+                                'server'
+                                :
+                                'disabled',
                 analyzerHost: '127.0.0.1',
                 analyzerPort: 8888,
-                reportFilename: 'analyze.html',
-                reportTitle: () => `elm [${ Date.now() }]`,
-                statsFilename: 'stats.json',
+                reportTitle: () => {
+                    const time = new Date()
+                    const year = time.getFullYear()
+                    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][time.getMonth()]
+                    const day = time.getDate()
+                    const hour = `0${time.getHours()}`.slice(-2)
+                    const minute = `0${time.getMinutes()}`.slice(-2)
+                    const currentTime = `${day} ${month} ${year} at ${hour}:${minute}`
+                    return `${process.env.npm_package_name || 'Bundle Analyzer'} [${currentTime}]`
+                },
                 statsOptions: null,
                 excludeAssets: null,
                 logLevel: 'info'
