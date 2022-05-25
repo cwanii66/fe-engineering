@@ -6,7 +6,7 @@
   "private": true,
   "license": "GPL",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "cross-env MEASURE=true vue-cli-service serve",
     "build": "vue-cli-service build"
   },
   "dependencies": {
@@ -22,9 +22,12 @@
   "devDependencies": {
     "@vue/cli-service": "^5.0.4",
     "@vue/compiler-sfc": "^3.2.35",
+    "cross-env": "^7.0.3",
     "sass": "^1.52.1",
     "sass-loader": "^13.0.0",
+    "speed-measure-webpack-plugin": "^1.5.0",
     "webpack": "^5.72.1",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.2"
   },
   "engines": {
