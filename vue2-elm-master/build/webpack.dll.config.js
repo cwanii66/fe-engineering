@@ -22,6 +22,6 @@ module.exports = {
             path: path.join(__dirname, dllPath, '[name]-manifest.json'),
             name: '[name]_[hash]',
             context: process.cwd(),
-        })
+        }),
     ]
 }
