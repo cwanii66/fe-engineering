@@ -2,13 +2,11 @@ const path = require('path')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const CopyPlugin = require('copy-webpack-plugin')
-
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 // console.log(process.env)
 const smp = new SpeedMeasurePlugin({
     disable: !(process.env.MEASURE === 'true'),
     outputFormat: 'human',
-    
 })
 
 // console.log("require('os').cpus()", require('os').cpus())
@@ -49,11 +47,8 @@ module.exports = {
                 context: process.cwd(),
                 manifest: path.resolve(__dirname, './dll/vue-manifest.json')
             }),
-            new CopyPlugin({
-                patterns: [{
-                    from: path.resolve(__dirname, './dll/vue.dll.js'),
-                    to: path.resolve(__dirname, './dist/js/vue.dll.js')
-                }]
+            new AddAssetHtmlPlugin({
+                filepath: path.resolve(__dirname, 'dll/vue.dll.js')
             })
         ]
     }),
