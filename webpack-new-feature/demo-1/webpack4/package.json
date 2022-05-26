@@ -1,0 +1,15 @@
+{
+  "name": "webpack-new-feature",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "devDependencies": {
+    "webpack": "^4.46.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
