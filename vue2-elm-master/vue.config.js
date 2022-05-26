@@ -3,12 +3,16 @@ const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+const PurgeCssPlugin = require('purgecss-webpack-plugin')
+const glob = require('glob')
 // console.log(process.env)
 const smp = new SpeedMeasurePlugin({
     disable: !(process.env.MEASURE === 'true'),
     outputFormat: 'human',
 })
-
+const PATH = {
+    src: path.join(__dirname, 'src')
+}
 // console.log("require('os').cpus()", require('os').cpus())
 module.exports = {
     publicPath: './',
@@ -85,6 +89,9 @@ module.exports = {
             }),
             new AddAssetHtmlPlugin({
                 filepath: path.resolve(__dirname, 'dll/vue.dll.js')
+            }),
+            new PurgeCssPlugin({
+                paths: glob.sync(`${PATH.src}/**/*`, { nodir: true }),
             })
         ]
     }),
