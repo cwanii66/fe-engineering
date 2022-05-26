@@ -7,7 +7,7 @@
   "license": "GPL",
   "scripts": {
     "serve": "cross-env MEASURE=true vue-cli-service serve",
-    "build": "cross-env MEASURE=false vue-cli-service build",
+    "build": "cross-env MEASURE=true vue-cli-service build",
     "dll": "webpack --config build/webpack.dll.config.js"
   },
   "dependencies": {

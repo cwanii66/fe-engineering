@@ -11,8 +11,13 @@ const smp = new SpeedMeasurePlugin({
 
 // console.log("require('os').cpus()", require('os').cpus())
 module.exports = {
+    publicPath: './',
     parallel: false, // vue/cli 开启thread-loader config
     configureWebpack: smp.wrap({
+        cache: {
+            type: 'filesystem',
+            cacheDirectory: path.resolve(__dirname, './node_modules/.cache_temp'),
+        },
         resolve: {
             alias: {
                 'src': path.resolve(__dirname, './src'),
