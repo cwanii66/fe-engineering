@@ -16,7 +16,9 @@ module.exports = {
     configureWebpack: smp.wrap({
         cache: {
             type: 'filesystem',
-            cacheDirectory: path.resolve(__dirname, './node_modules/.cache_temp'),
+            // cacheDirectory: path.resolve(__dirname, './node_modules/.cache_temp'),
+            // name: 'vue2-elm'
+            cacheLocation: path.resolve(__dirname, './node_modules/.cache_temp', 'vue2_elm'),
         },
         resolve: {
             alias: {
@@ -24,6 +26,35 @@ module.exports = {
                 'assets': path.resolve(__dirname, './src/assets'),
                 'components': path.resolve(__dirname, './src/components')
             }
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.(gif|png|jpe?g|svg|webp)$/i,
+                    use: [{
+                        loader: 'image-webpack-loader',
+                        options: {
+                            mozjpeg: {
+                                progressive: true,
+                                quality: 65
+                            },
+                            optipng: {
+                                enabled: false,
+                            },
+                            pngquant: {
+                                quality: [0.5, 0.65],
+                                speed: 4
+                            },
+                            gifsicle: {
+                                interlaced: false,
+                            },
+                            webp: {
+                                quality: 75
+                            }
+                        },
+                    }]
+                }
+            ]
         },
         plugins: [
             new BundleAnalyzerPlugin({
