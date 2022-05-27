@@ -11,21 +11,12 @@ const config = {
         splitChunks: {
             minSize: 1 * 1024,
             chunks: 'all',
-            cacheGroups: { //cacheGroupKey here is `commons` as the key of the cacheGroup
-                vue: { // expose to arguments of config fn value, called CacheGroupKey
-                    name(cacheGroupKey) {
-                        // console.log(typeof module)
-                        // const chunksNames = chunks.map((item) => item.name).join('-')
-                        // console.log(chunksNames)
-                        // console.log(cacheGroupKey)
-                        return cacheGroupKey
-                    },
-                }
-            }
+            name: 'vue'
         }
     },
     cache: {
         type: 'filesystem',
+        cacheDirectory: path.resolve(__dirname, 'node_modules', '.cache_temp')
     }
 }
 
