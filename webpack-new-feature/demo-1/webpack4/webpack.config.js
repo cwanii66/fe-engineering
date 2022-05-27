@@ -9,14 +9,16 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].bundle.js'
     },
-    module: {
-        rules: [
-            {},
-            {},
-            {}
-        ]
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vue: {
+                    name: 'vue',
+                    minSize: 1024,
+                    chunks: 'all',
+                }
+            }
+        }  
     },
-    plugins: [
-
-    ]
+    cache: true
 }
