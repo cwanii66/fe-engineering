@@ -1,0 +1,5 @@
+{
+  "http://imooc-dev.youbaobao.xyz/test/moduleA.js": { "integrity": "sha512-WnI9gbVEaQN02i9dxFSq2wScPd6IOjyjpw3n8eMJjwvZep9K7fUooZNwQ39oruUHrnIMzVMPSq8y0khFhXwEvQ==", "contentType": "application/javascript" },
+  "https://fast-learn-oss.youbaobao.xyz/tb/category6.png": { "integrity": "sha512-0/h9mSZPhRj+yWNEHygUblj4RJ8kEXCyy2nFwY/h7d/+QLOS7aKP5kfwT8jL98gYFFq0SiqXTmG9FnwTfhUesw==", "contentType": "image/png" },
+  "version": 1
+}

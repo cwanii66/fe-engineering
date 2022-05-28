@@ -11,6 +11,15 @@ console.log(func().a)
 import shield from 'file:///Users/chriswong/Desktop/LocalRepo/PersonalRepo/fe-engineering/webpack-new-feature/demo-1/img/jifen.jpeg'
 console.log(shield)
 
+// https&https:   protocol
+import moduleA from 'http://imooc-dev.youbaobao.xyz/test/moduleA.js'
+console.log(moduleA.a)
+
+import moduleB from 'https://fast-learn-oss.youbaobao.xyz/tb/category6.png'
+const imgNodeB = document.createElement('img')
+imgNodeB.setAttribute('src', moduleB)
+document.body.appendChild(imgNodeB)
+
 const imgUrl = require('./assets/voucher.png')
 const imgNode = document.createElement('img')
 imgNode.setAttribute('src', imgUrl)

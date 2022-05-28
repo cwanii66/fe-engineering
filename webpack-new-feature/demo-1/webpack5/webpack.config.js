@@ -33,6 +33,17 @@ const config = {
                 }
             }
         ]
+    },
+    experiments: {
+        buildHttp: {
+            allowedUris: [
+                'https://fast-learn-oss.youbaobao.xyz/',
+                'http://imooc-dev.youbaobao.xyz',
+            ],
+            frozen: false,
+            cacheLocation: false,
+            upgrade: true
+        },
     }
 }
 
