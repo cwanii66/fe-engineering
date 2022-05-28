@@ -1,6 +1,11 @@
 import o from './moduleA'
 import { ref } from 'vue'
 
+import data from 'data:text/javascript, export default "hello webpack5"'
+import func from 'data:text/javascript, export default function () { return { a: 1 } }'
+console.log(data)
+console.log(func().a)
+
 const imgUrl = require('./assets/voucher.png')
 const imgNode = document.createElement('img')
 imgNode.setAttribute('src', imgUrl)

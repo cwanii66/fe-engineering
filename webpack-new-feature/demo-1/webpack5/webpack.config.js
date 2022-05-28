@@ -29,7 +29,7 @@ const config = {
                     }
                 },
                 generator: {
-                    filename: 'images/[name][hash:5].[ext]'
+                    filename: 'images/[name][hash:5][ext]'
                 }
             }
         ]
