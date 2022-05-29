@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { ModuleFederationPlugin } = require('webpack').container
 
 const config = {
     mode: 'production',
@@ -54,6 +55,13 @@ const config = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, 'public/index.html')
+        }),
+        new ModuleFederationPlugin({
+            filename: 'app_b.js',
+            name: 'app_b',
+            remotes: {
+                main: 'main@http://localhost:3000/app_a.js' // 找到远程联邦模块
+            }
         })
     ]
 }

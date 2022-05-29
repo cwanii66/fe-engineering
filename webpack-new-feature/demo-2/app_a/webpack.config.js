@@ -1,4 +1,5 @@
 const path = require('path')
+const { ModuleFederationPlugin } = require('webpack').container
 
 const config = {
     mode: 'production',
@@ -48,7 +49,16 @@ const config = {
     devServer: {
         host: 'localhost',
         port: '3000'
-    }
+    },
+    plugins: [
+        new ModuleFederationPlugin({
+            filename: 'app_a.js',
+            name: 'main',
+            exposes: {
+                './moduleA': './src/index.js'
+            }
+        })
+    ]
 }
 
 module.exports = config
