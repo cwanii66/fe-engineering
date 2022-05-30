@@ -1,0 +1,15 @@
+{
+  "name": "cw-ls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "cw-ls": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ChrisWong",
+  "license": "ISC"
+}
