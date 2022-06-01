@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const parse = require('./argsParser.js')
+const auth = require('./auth.js')
 
 const dir = process.cwd()
 const args = process.argv.slice(2)
@@ -28,7 +29,7 @@ if (!isList) {
     // Unix使用32位二进制数存储文件类型和权限
     // 0000 文件类型、 000 特殊权限、000 用户权限、 000 分组权限、 000其他权限
     // example: 0001: File   0100: Directory
-    // bin: 16877 .json: 33188
+    // bin: 16877 package.json: 33188
 
     // bin: 0100 0001 1110 1101
     // S_IFDIR: 0100 0000 0000 0000
@@ -45,6 +46,10 @@ if (!isList) {
         //     'isDirectory:', stat.isDirectory(), // isDir > 0
         //     'isFile:', stat.isFile(), // isFile > 0
         // )
+        const stat = fs.statSync(file)
+        const mode = stat.mode
+        const authString = auth(mode)
+        
         if (index === files.length - 1) {
             return output += file
         }
