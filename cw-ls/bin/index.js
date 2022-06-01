@@ -4,6 +4,7 @@ const fs = require('fs')
 const parse = require('./argsParser.js')
 const auth = require('./auth.js')
 const getFileType = require('./getFileType.js')
+const getFileUser = require('./getFileUser.js')
 
 const dir = process.cwd()
 const args = process.argv.slice(2)
@@ -51,11 +52,22 @@ if (!isList) {
         const mode = stat.mode
         const authString = auth(mode)
         const fileType = getFileType(mode)
+        const fileUser = getFileUser(stat)
 
         if (index === files.length - 1) {
-            return output += fileType + (authString + '\t' + file)
+            return output += fileType 
+                + 
+                (authString + '\t' + file)
+                +
+                ('\t' + fileUser)
         }
-        output += fileType + (authString + '\t' + file + '\n')
+        output += fileType 
+            +
+            (authString + '\t' + file)
+            +
+            ('\t' + fileUser)
+            +
+            '\n'
     })
 }
 console.log(output)
