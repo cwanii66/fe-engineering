@@ -34,7 +34,7 @@ if (!isList) {
     // bin: 0100 0001 1110 1101
     // S_IFDIR: 0100 0000 0000 0000
 
-    files.forEach((file, index, files) => {
+    files.forEach((file, index) => {
         // const stat = fs.statSync(file) // 拿到文件mode编码
         // const mode = stat.mode
         // const isDir = mode & fs.constants.S_IFDIR  // mode跟相应4位二进制文件类型进行与操作
@@ -49,11 +49,15 @@ if (!isList) {
         const stat = fs.statSync(file)
         const mode = stat.mode
         const authString = auth(mode)
-        
-        if (index === files.length - 1) {
-            return output += file
+
+        if (index === this.length - 1) {
+            return `
+                    ${ authString }
+                    \t
+                    ${ file }
+                `
         }
-        output += file + '\n'
-    })
+        output += (authString + '\t' + file + '\n')
+    }, files)
 }
 console.log(output)
