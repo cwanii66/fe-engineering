@@ -50,6 +50,12 @@ if (!isList) {
         //     'isFile:', stat.isFile(), // isFile > 0
         // )
         const stat = fs.statSync(file)
+        const isDirectory = stat.isDirectory()
+        let size = 1
+        if (isDirectory) {
+            const subDir = fs.readdirSync(file)
+            size = subDir.length
+        }
         const mode = stat.mode
         const authString = auth(mode)
         const fileType = getFileType(mode)
@@ -57,9 +63,9 @@ if (!isList) {
         const fileSizeAndDate = getFileSizeAndDate(stat)
 
         if (index === files.length - 1) {
-            output += fileType + authString + '\t' + fileUser + '\t' + fileSizeAndDate + '  ' + file
+            output += fileType + authString + '  ' + size + '\t' + fileUser + '\t' + fileSizeAndDate + '  ' + file
         } else {
-            output += fileType + authString + '\t' + fileUser + '\t' + fileSizeAndDate + '  ' + file + '\n'
+            output += fileType + authString + '  ' + size + '\t' + fileUser + '\t' + fileSizeAndDate + '  ' + file + '\n'
         }
     })
 }
