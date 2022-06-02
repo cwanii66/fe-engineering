@@ -17,6 +17,6 @@ module.exports = function getFileUser(stat) {
 
     const index = groupIds.findIndex(id => Number(id) === Number(gid))
     const groupName = groupIdsName[index]
-
+    
     return (userName + ' ' + groupName)
 }

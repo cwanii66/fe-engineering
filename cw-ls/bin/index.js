@@ -5,6 +5,7 @@ const parse = require('./argsParser.js')
 const auth = require('./auth.js')
 const getFileType = require('./getFileType.js')
 const getFileUser = require('./getFileUser.js')
+const getFileSizeAndDate = require('./getFileSizeAndDate.js')
 
 const dir = process.cwd()
 const args = process.argv.slice(2)
@@ -36,7 +37,7 @@ if (!isList) {
     // bin: 0100 0001 1110 1101
     // S_IFDIR: 0100 0000 0000 0000
 
-    files.forEach((file, index, files) => {
+    files.forEach((file, index) => {
         // const stat = fs.statSync(file) // 拿到文件mode编码
         // const mode = stat.mode
         // const isDir = mode & fs.constants.S_IFDIR  // mode跟相应4位二进制文件类型进行与操作
@@ -53,21 +54,13 @@ if (!isList) {
         const authString = auth(mode)
         const fileType = getFileType(mode)
         const fileUser = getFileUser(stat)
+        const fileSizeAndDate = getFileSizeAndDate(stat)
 
         if (index === files.length - 1) {
-            return output += fileType 
-                + 
-                (authString + '\t' + file)
-                +
-                ('\t' + fileUser)
+            output += fileType + authString + '\t' + fileUser + '\t' + fileSizeAndDate + '  ' + file
+        } else {
+            output += fileType + authString + '\t' + fileUser + '\t' + fileSizeAndDate + '  ' + file + '\n'
         }
-        output += fileType 
-            +
-            (authString + '\t' + file)
-            +
-            ('\t' + fileUser)
-            +
-            '\n'
     })
 }
 console.log(output)
