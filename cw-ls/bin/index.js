@@ -8,9 +8,8 @@ const getFileUser = require('./getFileUser.js')
 const getFileSizeAndDate = require('./getFileSizeAndDate.js')
 
 const dir = process.cwd()
-const args = process.argv.slice(2)
 
-const { isAll, isList } = parse(args)
+const { isAll, isList } = parse()
 
 let files = fs.readdirSync(dir)
 let output = ''

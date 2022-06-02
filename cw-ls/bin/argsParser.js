@@ -1,4 +1,5 @@
-module.exports = function(args) {
+module.exports = function() {
+    const args = process.argv.slice(2)
     let isAll = false, // -a
         isList = false; // -l
 
@@ -19,6 +20,7 @@ module.exports = function(args) {
     }
 
     return {
+        args,
         isAll,
         isList
     }
