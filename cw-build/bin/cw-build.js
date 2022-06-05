@@ -1,16 +1,22 @@
 #!/usr/bin/env node
 
-const { program } = require('commander')
+const { Command } = require('commander')
+const program = new Command()
 
 program
-    .option('--first')
-    .option('-s, --separator <char>')
-    .option('-h, --help')
+    .name('cw-build')
+    .description('CLI to build fe project')
+    .version('0.0.1')
+
+program
+    .command('split')
+    .description('Split string to array')
+    .argument('<string>', 'string to split')
+    .option('--first', 'display just the first substring')
+    .option('-s, --separator <char>', 'separator character', ',')
+    .action((str, options) => {
+        const limit = options.first ? 1 : undefined
+        console.log(str.split(options.separator, limit))
+    })
 
 program.parse()
-
-const options = program.opts()
-const limit = options.first ? 1 : undefined // 代表分割参数的个数
-// cw-build aaa/bbb/cc --first -s /
-
-console.log(program.args[0].split(options.separator, limit))
