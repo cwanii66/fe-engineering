@@ -13,21 +13,19 @@ program
 
 program
     .option('-d --debug', 'debugging')
+    .option('-g, --global', 'global')
 
 program
     .command('split')
     .description('Split string to array')
     .argument('<string>', 'string to split')
-    .option('--first', 'display just the first substring')  // options here are scoped at this command
-    .option('-s, --separator <char>', 'separator character', ',')
+    .option('-f --first', 'display just the first substring')  // options here are scoped at this command
+    .requiredOption('-s, --separator <char>', 'separator character', ',') // 必须要加的option
     .option('-e, --extra', 'extra for something')
     .option('-a --add [string]', 'add something')
+    .option('-l, --letter <letters...>', 'specify letters')
     .action((str, options, cmd) => {
-        console.log(options)
-        // console.log(program.commands[0].optsWithGlobals())
-        // console.log(program.getOptionValue('debug')) // get optionValue globally
         console.log(cmd.optsWithGlobals())
-        console.log(cmd.opts())
         const limit = options.first ? 1 : undefined
         console.log(str.split(options.separator, limit))
     })
