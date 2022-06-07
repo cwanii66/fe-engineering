@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-const { Command } = require('commander')
+const { Command, Option } = require('commander')
+const pkg = require('../package.json')
+
 const program = new Command()
 
 // 1. 生成脚手架的帮助文档： cw-build -h
@@ -9,7 +11,7 @@ const program = new Command()
 program
     .name('cw-build')
     .description('CLI to build fe project')
-    .version('0.0.1')
+    .version(pkg.version, '-v, --version', 'output version')
 
 program
     .option('-d --debug', 'debugging')
@@ -30,12 +32,26 @@ program
         console.log(str.split(options.separator, limit))
     })
 
+program
+    .command('test')
+    .addOption(new Option('-s, --select', 'select option').hideHelp(true))
+    .addOption(new Option('-t, --timeout <delay>', 'timeout seconds').default(60, 'one minute'))
+    .addOption(new Option('-c, --choice <choice>', 'your chioce').choices(['small', 'medium', 'large']))
+    .addOption(new Option('-p, --port <number>', 'your port number').env('PORT'))
+    .addOption(new Option('-d, --donate [amount]', 'donation in dollars').preset('20').argParser(parseFloat))
+    .addOption(new Option('--disable-server', 'disable server').conflicts(['port', 'choice']))
+    .action((options, cmd) => {
+        console.log(cmd.optsWithGlobals())
+    })
+
+
+
 program.parse()
 
-// opts: 获取当前十里的options，全局program获取全局options，subcommand获取局部options
+// opts: 获取当前实例的options，全局program获取全局options，subcommand获取局部options
 // optsWithGlobals: 获取全部options，全局program获取全局options，但是subcommand获取 ** 全局+局部options **
-const options = program.opts() // global options
-const globalOptions = program.globalOptions
+// const options = program.opts() // global options
+// const globalOptions = program.globalOptions
 // console.log(globalOptions)
 // console.log(options)
 
