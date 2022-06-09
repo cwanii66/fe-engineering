@@ -14,10 +14,16 @@ function parseMyInt(string) {
     }
     return intValue
 }
+
 function increase(value, prev) {
     const v = Number(value)
     const p = prev ?? 0
     return v + p
+}
+
+function collect(value, prev) {
+    console.log(value, prev)
+    return prev.concat(value)
 }
 
 // 1. 生成脚手架的帮助文档： cw-build -h
@@ -64,6 +70,8 @@ program
     .option('-f --float <number>', 'float argument', parseFloat)
     .option('-i --integer <number>', 'integer number', parseMyInt)
     .option('--verbose <number>', 'verbose option', increase)
+    .option('-c --collect <value>', 'collect option', collect, [])
+    
     .action((options, cmd) => {
         console.log(cmd.optsWithGlobals())
     })
