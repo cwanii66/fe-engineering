@@ -1,9 +1,19 @@
 #!/usr/bin/env node
 
-const { Command, Option } = require('commander')
+const commander = require('commander')
+const { Command, Option } = commander
 const pkg = require('../package.json')
 
 const program = new Command()
+
+// Integer parser
+function parseMyInt(string) {
+    const intValue = parseInt(string, 10)
+    if (isNaN(intValue)) {
+        throw new commander.InvalidArgumentError('Not a Int Number')
+    }
+    return string
+}
 
 // 1. 生成脚手架的帮助文档： cw-build -h
 // 2. 生成脚手架command的帮助文档： cw-build split -h / cw-build help split
@@ -44,7 +54,13 @@ program
         console.log(cmd.optsWithGlobals())
     })
 
-
+program
+    .command('custom')
+    .option('-f --float <number>', 'float argument', parseFloat)
+    .option('-i --integer <number>', 'integer number', parseMyInt)
+    .action((options, cmd) => {
+        console.log(cmd.optsWithGlobals())
+    })
 
 program.parse()
 
