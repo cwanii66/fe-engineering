@@ -12,7 +12,12 @@ function parseMyInt(string) {
     if (isNaN(intValue)) {
         throw new commander.InvalidArgumentError('Not a Int Number')
     }
-    return string
+    return intValue
+}
+function increase(value, prev) {
+    const v = Number(value)
+    const p = prev ?? 0
+    return v + p
 }
 
 // 1. 生成脚手架的帮助文档： cw-build -h
@@ -58,6 +63,7 @@ program
     .command('custom')
     .option('-f --float <number>', 'float argument', parseFloat)
     .option('-i --integer <number>', 'integer number', parseMyInt)
+    .option('--verbose <number>', 'verbose option', increase)
     .action((options, cmd) => {
         console.log(cmd.optsWithGlobals())
     })
