@@ -26,6 +26,11 @@ function collect(value, prev) {
     return prev.concat(value)
 }
 
+function list(value, previous) {
+    console.log(value, previous)
+    return value.split(' ')
+}
+
 // 1. 生成脚手架的帮助文档： cw-build -h
 // 2. 生成脚手架command的帮助文档： cw-build split -h / cw-build help split
 
@@ -71,7 +76,7 @@ program
     .option('-i --integer <number>', 'integer number', parseMyInt)
     .option('--verbose <number>', 'verbose option', increase)
     .option('-c --collect <value>', 'collect option', collect, [])
-    
+    .option('-l --list <value>', 'list option', list, [])
     .action((options, cmd) => {
         console.log(cmd.optsWithGlobals())
     })
