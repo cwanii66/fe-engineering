@@ -38,6 +38,15 @@ program
     .name('cw-build')
     .description('CLI to build fe project')
     .version(pkg.version, '-v, --version', 'output version')
+    .hook('preAction', (thisCommand, actionCommand) => {
+        // console.log(thisCommand === actionCommand)
+        console.log(thisCommand === program)
+        console.log(actionCommand.args, actionCommand.opts())
+    })
+    .hook('postAction', (thisCommand, actionCommand) => {
+        console.log(thisCommand === program)
+        console.log(actionCommand.args, actionCommand.opts())
+    })
 
 program
     .option('-d --debug', 'debugging')
@@ -83,13 +92,30 @@ program
 
 program
     .command('login', { hidden: false, isDefault: true })
-    .argument('<username>', 'login username')
-    .argument('[password]', 'login password', 'empty password')
-    .argument('<dir...>', 'dir test argument')
+    // .argument('<username>', 'login username')
+    // .argument('[password]', 'login password', 'empty password')
+    // .argument('<dir...>', 'dir test argument')
     // .arguments('') 跟写在command差不多
+    .addArgument(new commander.Argument('username', 'username argument')
+        .argRequired()
+        .choices(['sam', 'chris', 'cw'])
+    )
+    .addArgument(new commander.Argument('password', 'password argument')
+        .argOptional()
+        .default('123', 'default password: 123')
+        .argParser(parseMyInt)
+    )
     .option('-f', 'force login')
-    .action((username, password, dir, options, cmd) => {
-        console.log(username, password, dir, options)
+    .hook('preAction', (thisCommand, actionCommand) => {
+        console.log(thisCommand.args, thisCommand.opts())
+        Reflect.deleteProperty(thisCommand.args, '1')
+    })
+    .hook('postAction', (thisCommand, actionCommand) => {
+        console.log(thisCommand.args, thisCommand.opts())
+    })
+    .action(function(username, password, options, cmd) {
+        // console.log(username, password, options)
+        console.log(this.args, this.opts())
     })
 
 
