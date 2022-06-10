@@ -81,6 +81,18 @@ program
         console.log(cmd.optsWithGlobals())
     })
 
+program
+    .command('login', { hidden: false, isDefault: true })
+    .argument('<username>', 'login username')
+    .argument('[password]', 'login password', 'empty password')
+    .argument('<dir...>', 'dir test argument')
+    // .arguments('') 跟写在command差不多
+    .option('-f', 'force login')
+    .action((username, password, dir, options, cmd) => {
+        console.log(username, password, dir, options)
+    })
+
+
 program.parse()
 
 // opts: 获取当前实例的options，全局program获取全局options，subcommand获取局部options
