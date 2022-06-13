@@ -6,20 +6,24 @@ function runServer() {
 
 }
 
+function onChange(path) {
+    try {
+        throw new Error(1)
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 function runWatcher() {
     // 启动配置监听
-    const configPath = path.resolve('./config.json');
-    const startPath = path.resolve(process.cwd(), 'lib/start');
-    const buildPath = path.resolve(process.cwd(), 'lib/build');
-    const watcher = chokidar.watch(startPath)
-        .on('all', (eventName, path) => {
-            console.log(eventName, path)
-            // console.log(watcher.getWatched())
+    const configPath = path.resolve(__dirname, './config.json');
+    const watcher = chokidar.watch(configPath)
+        .on('change', onChange)
+        .on('error', error => {
+            console.error('file watch error: ', error);
+            process.exit(1);
         });
-    watcher.add(startPath);
-    watcher.add(buildPath);
-    watcher.close()
-        .then(() => { console.log('closed') });
+
 }
 
 module.exports = function startServer(args, opts, cmd) {
