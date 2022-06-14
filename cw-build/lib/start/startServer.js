@@ -1,9 +1,19 @@
 const chokidar = require('chokidar');
 const path = require('path');
+const cp = require('child_process')
 
 function runServer() {
     // 启动webpack服务
 
+    // 启动子进程的方式
+    console.log(process.pid)
+    // 1. execFile()
+    cp.execFile('node', [path.resolve(__dirname, './devService.js'), '--force'], {}, (error, stdout, stderr) => {
+        if (error) {
+            throw error;
+        }
+        console.log(stdout)
+    })
 }
 
 function onChange(path) {
