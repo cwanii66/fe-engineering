@@ -21,6 +21,26 @@ const detectPort = require('detect-port');
         } else {
             console.log(`port: ${defaultPort} was occupied, try port: ${newPort}`);
         }
+
+        const net = require('net');
+        const tcpServer = new net.Server();
+        tcpServer.listen(8080, 'localhost', () => {
+            console.log(tcpServer.address());
+        });
+        tcpServer.on('error', (error) => {
+            console.log(error);
+        });
+        tcpServer.on('connection', (socket) => {
+            console.log('socket connection');
+            socket.write('write data\r\n');
+            socket.on('data', (data) => {
+                const event = data.toString();
+                if (event === 'end') {
+                    console.log('close connection');
+                    socket.end();
+                }
+            });
+        });
     } catch(e) {
         console.log(e);
     }
