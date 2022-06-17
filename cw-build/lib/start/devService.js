@@ -1,4 +1,5 @@
 const detectPort = require('detect-port');
+const inquirer = require('inquirer');
 
 (async () => {
     const DEDAULT_PORT = 8000;
@@ -20,27 +21,18 @@ const detectPort = require('detect-port');
             console.log(`port: ${defaultPort} was not occupied`);
         } else {
             console.log(`port: ${defaultPort} was occupied, try port: ${newPort}`);
-        }
 
-        const net = require('net');
-        const tcpServer = new net.Server();
-        tcpServer.listen(8080, 'localhost', () => {
-            console.log(tcpServer.address());
-        });
-        tcpServer.on('error', (error) => {
-            console.log(error);
-        });
-        tcpServer.on('connection', (socket) => {
-            console.log('socket connection');
-            socket.write('write data\r\n');
-            socket.on('data', (data) => {
-                const event = data.toString();
-                if (event === 'end') {
-                    console.log('close connection');
-                    socket.end();
-                }
-            });
-        });
+            // 命令行交互
+            const questions = {
+                type: 'confirm',
+                name: 'answer',
+                message: `port: ${defaultPort} was occupied, try port: ${newPort}?`,
+            };
+            const answer = await inquirer.prompt(questions).answer;
+            if (!answer) {
+                process.exit(1);
+            }
+        }
     } catch(e) {
         console.log(e);
     }
