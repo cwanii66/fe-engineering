@@ -6,30 +6,17 @@ function runServer() {
     // 启动webpack服务
 
     // 启动子进程的方式
-    console.log(process.pid)
-    // 1. execFile()
-    // cp.execFile('node', [path.resolve(__dirname, './devService.js'), '--force'], {}, (error, stdout, stderr) => {
-    //     if (error) {
-    //         throw error;
-    //     }
-    //     console.log(stdout)
-    // })
-    // const buffer = cp.execSync(`node ${path.resolve(__dirname, './devService.js')} --force`, {}, (error, stdout, stderr) => {});
-    // console.log(buffer.toString())
-
-    const child = cp.spawn('node', [path.resolve(__dirname, './devService.js'), '--force'])
-    child.stdout.on('data', function(data) {
-        console.log('stdout: ', data.toString())
-    })
-    child.stderr.on('data', data => {
-        console.log('stderr: ', data.toString())
-    })
-    child.on('close', (code) => {
-        console.log(`child process exited with code ${code}`)
-    })
-
-    // RPC remote process communicate
+    console.log('pid', process.pid)
     
+    const scriptPath = path.resolve(__dirname, './devService.js');
+    // fork 出来的child process支持内置通信通道
+    const child = cp.fork(scriptPath)
+    child.on('message', data => {
+        // 接受来自子进程的消息
+        console.log('message from child process')
+        console.log(data)
+    });
+    child.send('hello child process');
 }
 
 function onChange(path) {
