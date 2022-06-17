@@ -10,7 +10,7 @@ const Service = require('../service/Service');
     params.forEach((param, index) => {
         const paramArr = param.split(' ');
         const repalceKey = paramArr[0].replace('--', '');
-        paramObj[repalceKey] = paramArr[1] ?? 'default';
+        paramObj[repalceKey] = paramArr[1];
     });
     console.log(paramObj)
     

@@ -2,30 +2,31 @@ const chokidar = require('chokidar');
 const path = require('path');
 const cp = require('child_process')
 
+let child;
+
 function runServer() {
     // 启动webpack服务
 
-    // 启动子进程的方式
-    console.log('pid', process.pid)
-    
     const scriptPath = path.resolve(__dirname, './devService.js');
     // fork 出来的child process支持内置通信通道
-    const child = cp.fork(scriptPath, ['--port 8080', 'localhost']);
-    
+    child = cp.fork(scriptPath, ['--port 8080']);
+
+    // child.on('exit', (code) => {
+    //     process.exit(code);
+    // });
 }
 
 function onChange(path) {
-    try {
-        throw new Error(1)
-    } catch(e) {
-        console.log(e)
-    }
+    console.log('config change')
+    child.kill();
+    runServer();
 }
 
 function runWatcher() {
     // 启动配置监听
     const configPath = path.resolve(__dirname, './config.json');
-    const watcher = chokidar.watch(configPath)
+    const watcher = chokidar.watch(configPath);
+    watcher
         .on('change', onChange)
         .on('error', error => {
             console.error('file watch error: ', error);
