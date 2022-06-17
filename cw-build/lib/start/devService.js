@@ -1,5 +1,6 @@
 const detectPort = require('detect-port');
 const inquirer = require('inquirer');
+const Service = require('../service/Service');
 
 (async () => {
     const DEDAULT_PORT = 8000;
@@ -33,6 +34,12 @@ const inquirer = require('inquirer');
                 process.exit(1);
             }
         }
+        const args = {
+            port: newPort,
+        };
+        process.env.NODE_ENV = 'development';
+        const service = new Service(args);
+        service.start();
     } catch(e) {
         console.log(e);
     }

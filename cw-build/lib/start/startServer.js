@@ -11,12 +11,7 @@ function runServer() {
     const scriptPath = path.resolve(__dirname, './devService.js');
     // fork 出来的child process支持内置通信通道
     const child = cp.fork(scriptPath, ['--port 8080', 'localhost']);
-    // child.on('message', data => {
-    //     // 接受来自子进程的消息
-    //     console.log('message from child process')
-    //     console.log(data)
-    // });
-    // child.send('hello child process');
+    
 }
 
 function onChange(path) {
