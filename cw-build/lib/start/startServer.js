@@ -14,7 +14,9 @@ function runServer(arg) {
     child = cp.fork(scriptPath, ['--port 8080', `--config ${config}`]);
 
     child.on('exit', (code) => {
-        process.exit(code);
+        if (code) {
+            process.exit(code);
+        }
     });
 }
 

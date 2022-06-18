@@ -29,6 +29,7 @@ const Service = require('../service/Service');
                 message: `port: ${defaultPort} was occupied, try port: ${newPort}?`,
             };
             const answer = await inquirer.prompt(questions).answer;
+            
             if (!answer) {
                 process.exit(1);
             }
