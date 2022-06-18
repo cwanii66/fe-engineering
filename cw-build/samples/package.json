@@ -4,9 +4,12 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "cw-build start"
+    "dev": "cw-build start --config cw-build.json"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fast-glob": "^3.2.11"
+  }
 }

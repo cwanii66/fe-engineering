@@ -12,7 +12,9 @@ const Service = require('../service/Service');
         const repalceKey = paramArr[0].replace('--', '');
         paramObj[repalceKey] = paramArr[1];
     });
+    // console.log(paramObj)
     
+    const { config = '' } = paramObj;
     let defaultPort = Number(paramObj['port']) || DEDAULT_PORT;
     
     try {
@@ -33,6 +35,7 @@ const Service = require('../service/Service');
         } 
         const args = {
             port: newPort,
+            config
         };
         process.env.NODE_ENV = 'development';
         const service = new Service(args);

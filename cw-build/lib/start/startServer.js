@@ -4,12 +4,14 @@ const cp = require('child_process');
 
 let child;
 
-function runServer() {
+function runServer(arg) {
+    const { config } = arg;
+
     // 启动webpack服务
 
     const scriptPath = path.resolve(__dirname, './devService.js');
     // fork 出来的child process支持内置通信通道
-    child = cp.fork(scriptPath, ['--port 8080']);
+    child = cp.fork(scriptPath, ['--port 8080', `--config ${config}`]);
 
     // child.on('exit', (code) => {
     //     process.exit(code);
@@ -34,11 +36,13 @@ function runWatcher() {
         });
 }
 
-module.exports = function startServer(args, opts, cmd) {
+module.exports = function startServer(opts, cmd) {
+    // console.log(opts);
+
     // 1. 通过子进程启动webpack-dev-server服务
     // 1.1 子进程启动可以避免主进程收到影响
     // 1.2 子进程启动可以方便重启，解决webpack-dev-server配置修改后无法重启
-    runServer();
+    runServer(opts);
 
     // 2. 监听配置修改(不管用webpack还是vite最终都会映射到一个配置文件上)
     runWatcher();

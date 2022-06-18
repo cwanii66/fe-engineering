@@ -3,6 +3,7 @@
 const commander = require('commander');
 const { Command, Option, Argument } = commander
 const pkg = require('../package.json');
+const path = require('path');
 
 const { checkNode } = require('../lib/utils/checkNode');
 const startServer = require('../lib/start/startServer');
@@ -23,6 +24,7 @@ const MIN_NODE_VERSION = '8.9.0';
         program
             .command('start')
             .description('start cw-build server')
+            .addOption(new Option('-c, --config <config>', 'config path').default(path.resolve(process.cwd(), 'cw-config.json')))
             .allowUnknownOption()
             .action(startServer)
 

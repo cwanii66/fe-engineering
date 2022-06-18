@@ -1,5 +1,9 @@
+const path = require('path');
+const fg = require('fast-glob');
 
+const DEAFULT_CONFIG_NAME = 'cw-config';
 class Service {
+
     constructor(opts) {
         this.args = opts;
         this.config = {};
@@ -11,7 +15,16 @@ class Service {
     }
 
     resolveConfig() {
-        console.log('resolve config')
+        const { config } = this.args;
+        let configFilePath = '';
+        if (config) {
+            if (path.isAbsolute(config)) {
+                configFilePath = config;
+            }
+            configFilePath = path.resolve(config);
+        } else {
+            
+        }
     }
 }
 
