@@ -24,7 +24,7 @@ const MIN_NODE_VERSION = '8.9.0';
         program
             .command('start')
             .description('start cw-build server')
-            .addOption(new Option('-c, --config <config>', 'config path').default(path.resolve(process.cwd(), 'cw-config.json')))
+            .addOption(new Option('-c, --config <config>', 'config path'))
             .allowUnknownOption()
             .action(startServer)
 
