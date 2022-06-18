@@ -1,6 +1,6 @@
 const chokidar = require('chokidar');
 const path = require('path');
-const cp = require('child_process')
+const cp = require('child_process');
 
 let child;
 

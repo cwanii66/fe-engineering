@@ -4,7 +4,7 @@ const commander = require('commander');
 const { Command, Option, Argument } = commander
 const pkg = require('../package.json');
 
-const { checkNode } = require('../lib/checkNode');
+const { checkNode } = require('../lib/utils/checkNode');
 const startServer = require('../lib/start/startServer');
 const startBuild = require('../lib/build/build');
 

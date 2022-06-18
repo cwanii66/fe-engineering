@@ -12,15 +12,12 @@ const Service = require('../service/Service');
         const repalceKey = paramArr[0].replace('--', '');
         paramObj[repalceKey] = paramArr[1];
     });
-    console.log(paramObj)
     
     let defaultPort = Number(paramObj['port']) || DEDAULT_PORT;
     
     try {
         const newPort = await detectPort(defaultPort);
-        if (newPort === defaultPort) {
-            console.log(`port: ${defaultPort} was not occupied`);
-        } else {
+        if (newPort !== defaultPort) {
             console.log(`port: ${defaultPort} was occupied, try port: ${newPort}`);
 
             // 命令行交互
@@ -33,13 +30,14 @@ const Service = require('../service/Service');
             if (!answer) {
                 process.exit(1);
             }
-        }
+        } 
         const args = {
             port: newPort,
         };
         process.env.NODE_ENV = 'development';
         const service = new Service(args);
-        service.start();
+        await service.start();
+
     } catch(e) {
         console.log(e);
     }

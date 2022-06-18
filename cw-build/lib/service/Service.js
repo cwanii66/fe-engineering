@@ -1,12 +1,17 @@
 
 class Service {
-    constructor(props) {
-        
+    constructor(opts) {
+        this.args = opts;
+        this.config = {};
+        this.hooks = {};
     }
     
-    start() {
-        console.log('start service');
+    async start() {
+        this.resolveConfig();
+    }
 
+    resolveConfig() {
+        console.log('resolve config')
     }
 }
 

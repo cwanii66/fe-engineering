@@ -1,0 +1,1 @@
+console.log('hello cw-build test project');
