@@ -33,7 +33,20 @@ const MIN_NODE_VERSION = '8.9.0';
             .description('build project with cw-build')
             .allowUnknownOption()
             .action(startBuild)
-        
+            
+        program
+            .option('-d --debug', 'start debug mode')
+            .hook('preAction', (thisCommand, actionCommand) => {
+                const opts = actionCommand.optsWithGlobals();
+                const { debug = false } = opts;
+                
+                if (debug) {
+                    process.env.LOG_LEVEL = 'verbose';
+                } else {
+                    process.env.LOG_LEVEL = 'info';
+                }
+            })
+
         program.parse() // implicitly use process.argv and auto-detect node vs electron conventions
 
     } catch(e) {

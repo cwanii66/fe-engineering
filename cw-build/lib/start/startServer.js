@@ -39,7 +39,6 @@ function runWatcher() {
 }
 
 module.exports = function startServer(opts, cmd) {
-    // console.log(opts);
 
     // 1. 通过子进程启动webpack-dev-server服务
     // 1.1 子进程启动可以避免主进程收到影响

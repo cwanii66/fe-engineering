@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const fg = require('fast-glob');
+const log = require('../utils/log');
 
 const DEAFULT_CONFIG_NAME = ['cw-config.(mjs|js|json)'];
 class Service {
@@ -31,8 +32,8 @@ class Service {
         }
 
         if (configFilePath && fs.existsSync(configFilePath)) {
-            this.config = require(configFilePath)
-            console.log(this.config)
+            this.config = require(configFilePath);
+            log.verbose('config', this.config)
         } else {
             console.log('config file does not exist, end process...');
             process.exit(1);
