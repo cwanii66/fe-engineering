@@ -6,16 +6,10 @@ export default {
     ],
     hooks: [
         [ 
-            'created', 
-            function(context) {
-                console.log('created', context);
+            'start', 
+            function(...args) {
+                console.log('start', args);
             } 
         ],
-        [ 
-            'configResolved', 
-            function(context) {
-                console.log('configResolved', context);
-            } 
-        ]
     ]
 }

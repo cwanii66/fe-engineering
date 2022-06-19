@@ -2,6 +2,11 @@ const path = require('path');
 const fs = require('fs');
 const log = require('../utils/log');
 const { getConfigFile } = require('../utils/index');
+const constant = require('./const');
+
+const HOOK_KEYS = [
+    constant.HOOK_START
+]; // allowed hooks
 
 class Service {
 
@@ -10,11 +15,14 @@ class Service {
         this.config = {};
         this.hooks = {};  // { <string>: [ fn,fn, ...] }
         this.dir = process.cwd();
+
     }
     
     async start() {
         await this.resolveConfig();
         this.registerHooks();
+
+        this.emitHooks(constant.HOOK_START, 'hook', 'start'); // hook -> create service instance
     }
 
     async resolveConfig() {
@@ -27,7 +35,7 @@ class Service {
             }
             configFilePath = path.resolve(config);
         } else {
-            configFilePath = getConfigFile();
+            configFilePath = getConfigFile(this.dir);
             // log.verbose('configFilePath: ', configFilePath);
         }
 
@@ -51,7 +59,7 @@ class Service {
         if (hooks && hooks.length > 0) {
            hooks.forEach((hookDefArr) => {
                 const [ hookName, hookFn ] = hookDefArr;
-                if (hookName && hookFn) {
+                if (hookName && hookFn && HOOK_KEYS.includes(hookName)) {
                     if (typeof hookName === 'string' && typeof hookFn === 'function') {
                         const definedHook = this.hooks[hookName];
                         if (!definedHook) {
@@ -64,8 +72,16 @@ class Service {
         }
     }
 
-    emitHooks(hooks) {
-
+    async emitHooks(key, ...args) {
+        const hooks = this.hooks[key];
+        try {
+            for (let i = 0, hook; hook = hooks[i++]; ) {
+                await hook.apply(this, args);
+            }  
+        } catch(e) {
+            log.error(e);
+        }
+        
     }
 }
 
