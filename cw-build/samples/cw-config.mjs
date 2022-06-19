@@ -1,12 +1,21 @@
-// const path = require('path');
 
-import path from 'path';
-
-const entry = 'src/main.js';
-
-module.exports = {
-    entry: path.isAbsolute(entry) ? entry : path.resolve(entry),
+export default {
+    entry: 'src/main.js',
     plugins: [
         "cw-build-test"
+    ],
+    hooks: [
+        [ 
+            'created', 
+            function(context) {
+                console.log('created', context);
+            } 
+        ],
+        [ 
+            'configResolved', 
+            function(context) {
+                console.log('configResolved', context);
+            } 
+        ]
     ]
 }

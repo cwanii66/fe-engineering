@@ -1,6 +1,0 @@
-{
-    "entry": "src/main.js",
-    "plugins": [
-        "cw-build-test"
-    ]
-}

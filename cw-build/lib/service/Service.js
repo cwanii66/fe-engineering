@@ -13,10 +13,11 @@ class Service {
     }
     
     async start() {
-        this.resolveConfig();
+        await this.resolveConfig();
+        this.registerHooks();
     }
 
-    resolveConfig() {
+    async resolveConfig() {
         const { config } = this.args;
         let configFilePath = '';
 
@@ -31,12 +32,27 @@ class Service {
         }
 
         if (configFilePath && fs.existsSync(configFilePath)) {
-            this.config = require(configFilePath);
+            const isMjs = configFilePath.endsWith('mjs');
+            if (isMjs) {
+                this.config = (await import(configFilePath)).default;
+            } else {
+                this.config = require(configFilePath);
+            }
             // log.verbose('config', this.config);
         } else {
             console.log('config file does not exist, end process...');
             process.exit(1);
         }
+    }
+
+    registerHooks() {
+        console.log(this.config);
+        // [ ['init', function() {}], ['init', function() {}] ]
+
+    }
+
+    emitHooks(hooks) {
+
     }
 }
 
