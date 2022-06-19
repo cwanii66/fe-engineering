@@ -1,9 +1,8 @@
 const path = require('path');
 const fs = require('fs');
-const fg = require('fast-glob');
 const log = require('../utils/log');
+const { getConfigFile } = require('../utils/index');
 
-const DEAFULT_CONFIG_NAME = ['cw-config.(mjs|js|json)'];
 class Service {
 
     constructor(opts) {
@@ -27,13 +26,13 @@ class Service {
             }
             configFilePath = path.resolve(config);
         } else {
-            const [ configFile ] = fg.sync(DEAFULT_CONFIG_NAME, { cwd: this.dir, absolute: true });
-            configFilePath = configFile;
+            configFilePath = getConfigFile();
+            // log.verbose('configFilePath: ', configFilePath);
         }
 
         if (configFilePath && fs.existsSync(configFilePath)) {
             this.config = require(configFilePath);
-            log.verbose('config', this.config)
+            // log.verbose('config', this.config);
         } else {
             console.log('config file does not exist, end process...');
             process.exit(1);

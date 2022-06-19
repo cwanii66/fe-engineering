@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "cw-build start"
+    "dev": "cw-build start --debug"
   },
   "keywords": [],
   "author": "",

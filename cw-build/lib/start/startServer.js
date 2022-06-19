@@ -1,11 +1,12 @@
 const chokidar = require('chokidar');
 const path = require('path');
 const cp = require('child_process');
+const log = require('../utils/log');
+const { getConfigFile } = require('../utils/index');
 
 let child;
 
-function runServer(arg) {
-    
+function runServer(arg = {}) {
     const { config = '' } = arg;
     // 启动webpack服务
 
@@ -21,14 +22,16 @@ function runServer(arg) {
 }
 
 function onChange(path) {
-    console.log('config change')
+    console.log(log.level, process.env.LOG_LEVEL)
+    log.verbose('config changes...');
     child.kill();
     runServer();
 }
 
 function runWatcher() {
     // 启动配置监听
-    const configPath = path.resolve(__dirname, './config.json');
+    const configPath = getConfigFile();
+    
     const watcher = chokidar.watch(configPath);
     watcher
         .on('change', onChange)
@@ -39,7 +42,6 @@ function runWatcher() {
 }
 
 module.exports = function startServer(opts, cmd) {
-
     // 1. 通过子进程启动webpack-dev-server服务
     // 1.1 子进程启动可以避免主进程收到影响
     // 1.2 子进程启动可以方便重启，解决webpack-dev-server配置修改后无法重启
