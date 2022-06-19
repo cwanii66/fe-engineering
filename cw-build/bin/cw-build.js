@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+checkDebug(); // before require()
+
 const commander = require('commander');
 const { Command, Option, Argument } = commander
 const pkg = require('../package.json');
@@ -12,6 +14,14 @@ const startBuild = require('../lib/build/build');
 const program = new Command();
 
 const MIN_NODE_VERSION = '8.9.0';
+
+function checkDebug() {
+    if (process.argv.indexOf('--debug') >= 0 || process.argv.indexOf('-d') >= 0) {
+        process.env.LOG_LEVEL = 'verbose';
+    } else {
+        process.env.LOG_LEVEL = 'info';
+    }
+}
 
 (async () => {
     try {
@@ -36,16 +46,6 @@ const MIN_NODE_VERSION = '8.9.0';
             
         program
             .option('-d --debug', 'start debug mode')
-            .hook('preAction', (thisCommand, actionCommand) => {
-                const opts = actionCommand.optsWithGlobals();
-                const { debug = false } = opts;
-                
-                if (debug) {
-                    process.env.LOG_LEVEL = 'verbose';
-                } else {
-                    process.env.LOG_LEVEL = 'info';
-                }
-            })
 
         program.parse() // implicitly use process.argv and auto-detect node vs electron conventions
 

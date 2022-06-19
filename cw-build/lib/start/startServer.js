@@ -22,7 +22,6 @@ function runServer(arg = {}) {
 }
 
 function onChange(path) {
-    console.log(log.level, process.env.LOG_LEVEL)
     log.verbose('config changes...');
     child.kill();
     runServer();
