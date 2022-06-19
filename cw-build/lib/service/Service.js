@@ -8,7 +8,7 @@ class Service {
     constructor(opts) {
         this.args = opts;
         this.config = {};
-        this.hooks = {};
+        this.hooks = {};  // { <string>: [ fn,fn, ...] }
         this.dir = process.cwd();
     }
     
@@ -46,9 +46,22 @@ class Service {
     }
 
     registerHooks() {
-        console.log(this.config);
         // [ ['init', function() {}], ['init', function() {}] ]
-
+        const { hooks } = this.config;
+        if (hooks && hooks.length > 0) {
+           hooks.forEach((hookDefArr) => {
+                const [ hookName, hookFn ] = hookDefArr;
+                if (hookName && hookFn) {
+                    if (typeof hookName === 'string' && typeof hookFn === 'function') {
+                        const definedHook = this.hooks[hookName];
+                        if (!definedHook) {
+                            this.hooks[hookName] = [];
+                        }
+                        this.hooks[hookName].push(hookFn);
+                    }
+                }
+            }); 
+        }
     }
 
     emitHooks(hooks) {
