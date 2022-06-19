@@ -8,11 +8,7 @@
     "hooks": [
         [
             "start",
-            "./hooks/cw-build-start-hook.js"
-        ],
-        [
-            "start",
-            "./hooks/cw-build-start-hook.mjs"
+            "cw-build-start-hook/index.mjs"
         ]
     ]
 }

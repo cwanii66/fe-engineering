@@ -17,11 +17,19 @@ function getConfigFile(cwd = process.cwd()) {
  * @description pass into a path string, return a function module
  */
 async function loadModule(modulePath) {
-    let hookFnPath = path.isAbsolute(modulePath) ? modulePath : path.resolve(modulePath);
-    hookFnPath = require.resolve(hookFnPath);
-
+    let hookFnPath;
+    // node_module or path ?
+    if (modulePath.startsWith('/') || modulePath.startsWith('.')) {
+        hookFnPath = path.isAbsolute(modulePath) ? modulePath : path.resolve(modulePath);
+    }
+    hookFnPath = require.resolve(modulePath, {
+        paths: [ 
+            path.resolve(process.cwd(), 'node_modules') 
+        ]
+    }); // we just want the path to a file(alternative of path.join(__dirname, <path>)), support node_modules traverse
+    
     if (fs.existsSync(hookFnPath)) {
-        const isMjs = modulePath.endsWith('mjs');
+        const isMjs = hookFnPath.endsWith('mjs');
         if (isMjs) {
             return (await import(hookFnPath)).default;
         } else {
