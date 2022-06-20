@@ -21,12 +21,13 @@ async function loadModule(modulePath) {
     // node_module or path ?
     if (modulePath.startsWith('/') || modulePath.startsWith('.')) {
         hookFnPath = path.isAbsolute(modulePath) ? modulePath : path.resolve(modulePath);
+    } else {
+        hookFnPath = require.resolve(modulePath, {
+            paths: [
+                path.resolve(process.cwd(), 'node_modules') 
+            ]
+        }); // we just want the path to a file(alternative of path.join(__dirname, <path>)), support node_modules traverse
     }
-    hookFnPath = require.resolve(modulePath, {
-        paths: [ 
-            path.resolve(process.cwd(), 'node_modules') 
-        ]
-    }); // we just want the path to a file(alternative of path.join(__dirname, <path>)), support node_modules traverse
     
     if (fs.existsSync(hookFnPath)) {
         const isMjs = hookFnPath.endsWith('mjs');

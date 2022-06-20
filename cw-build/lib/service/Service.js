@@ -9,20 +9,20 @@ const HOOK_KEYS = [
 ]; // allowed hooks
 
 class Service {
-
     constructor(opts) {
         this.args = opts;
         this.config = {};
         this.hooks = {};  // { <string>: [ fn,fn, ...] }
+        this.plugins = []; // [ {}, {}, ]
         this.dir = process.cwd();
-
     }
     
     async start() {
         await this.resolveConfig();
         await this.registerHooks();
-
-        this.emitHooks(constant.HOOK_START, 'hook', 'start'); // hook -> start service
+        await this.emitHooks(constant.HOOK_START, 'hook', 'start'); // hook -> start service
+        await this.registerPlugin();
+        await this.execPlugin();
     }
 
     async resolveConfig() {
@@ -41,7 +41,7 @@ class Service {
 
         if (configFilePath && fs.existsSync(configFilePath)) {
             this.config = await loadModule(configFilePath);
-            // log.verbose('config', this.config);
+            log.verbose('config', this.config);
         } else {
             console.log('config file does not exist, end process...');
             process.exit(1);
@@ -84,6 +84,31 @@ class Service {
             log.error(e);
         }
         
+    }
+
+    async registerPlugin() {
+        const { plugins } = this.config;
+        if (plugins) {
+            if (Array.isArray(plugins)) {
+                for (const plugin of plugins) {
+                    if (typeof plugin === 'string') {
+                        const mod = await loadModule(plugin);
+                        this.plugins.push({ mod });
+                    } else if (Array.isArray(plugin)) {
+                        const [ pluginPath, pluginParam ] = plugin;
+                        const mod = await loadModule(pluginPath);
+                        this.plugins.push({
+                            mod,
+                            params: pluginParam
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    async execPlugin() {
+        console.log('runPlugin ', this.plugins)
     }
 }
 
