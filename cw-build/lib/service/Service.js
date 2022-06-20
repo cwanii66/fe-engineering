@@ -14,9 +14,10 @@ class Service {
         this.args = opts;
         this.config = {};
         this.hooks = {};  // { <string>: [ fn,fn, ...] }
-        this.plugins = []; // [ {}, {}, ]
+        this.plugins = []; // [ { mod, params }, {}, ]
         this.dir = process.cwd();
-        this.webpackConfig;
+        this.webpackConfig = null;
+        this.internalValue = {}; // basic of inter-communication among plugins
     }
     
     async start() {
@@ -78,11 +79,10 @@ class Service {
                             semi: 'off'
                         }
                     })
-                
-        const lintRule = this.webpackConfig.module.rule('lint')
         
-        console.log('webpack config: ', this.webpackConfig.toConfig().module.rules);
-
+        this.webpackConfig
+                    .plugin('clean')
+                    .use('webpack-chain', [{ root: '/dir' }])
     }
 
     async registerHooks() {
@@ -152,7 +152,33 @@ class Service {
     }
 
     async execPlugin() {
-        console.log('runPlugin ', this.plugins)
+        for (const plugin of this.plugins) {
+            const { mod, params = {} } = plugin;
+            if (!mod) continue;
+            const API = {
+                getWebpackConfig: this.getWebpackConfig,
+                emitHooks: this.emitHooks,
+                setValue: this.setValue,
+                getValue: this.getValue,
+                log
+            };
+            const options = {
+                ...params,
+            };
+            await mod(API, options);
+        }
+    }
+
+    getWebpackConfig() {
+        return this.webpackConfig;
+    }
+
+    setValue(key, value) {
+        this.internalValue[key] = value;
+    }
+
+    getValue(key) {
+        return this.internalValue[key];
     }
 }
 

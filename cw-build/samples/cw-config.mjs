@@ -4,8 +4,8 @@ export default {
     plugins: function() {
         return [
             ['cw-build-test', { a: 1, b: 2 }],
-            function() {
-                console.log('anonymous plugin')
+            function(api, options) {
+                console.log('anonymous plugin', options);
             }
         ]
     },
