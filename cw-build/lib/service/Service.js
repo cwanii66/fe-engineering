@@ -87,8 +87,11 @@ class Service {
     }
 
     async registerPlugin() {
-        const { plugins } = this.config;
+        let { plugins } = this.config;
         if (plugins) {
+            if (typeof plugins === 'function') {
+                plugins = plugins();
+            }
             if (Array.isArray(plugins)) {
                 for (const plugin of plugins) {
                     if (typeof plugin === 'string') {
@@ -100,6 +103,10 @@ class Service {
                         this.plugins.push({
                             mod,
                             params: pluginParam
+                        });
+                    } else if (typeof plugin === 'function') {
+                        this.plugins.push({
+                            mod: plugin
                         });
                     }
                 }
