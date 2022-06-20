@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const WebpackChain = require('webpack-chain');
 const log = require('../utils/log');
 const { getConfigFile, loadModule } = require('../utils/index');
 const constant = require('./const');
@@ -15,6 +16,7 @@ class Service {
         this.hooks = {};  // { <string>: [ fn,fn, ...] }
         this.plugins = []; // [ {}, {}, ]
         this.dir = process.cwd();
+        this.webpackConfig;
     }
     
     async start() {
@@ -46,6 +48,41 @@ class Service {
             console.log('config file does not exist, end process...');
             process.exit(1);
         }
+
+        // Instantiate the configuration with a new API
+        this.webpackConfig = new WebpackChain();
+
+        // Make configuration change using the chain API
+        // Every API call tracks a change to the stored configuration
+
+        this.webpackConfig
+            .entry('main')
+                .add('src/index.js')
+                .end()
+            .output
+                .path('dist')
+                .filename('[name].bundle.js')
+        this.webpackConfig.module
+                .rule('lint')
+                    .test(/\.js$/)
+                    .include
+                        .add('src')
+                        .end()
+                    .exclude
+                        .add('node_modules')
+                        .end()
+                .use('eslint')
+                    .loader('eslint-loader')
+                    .options({
+                        rules: {
+                            semi: 'off'
+                        }
+                    })
+                
+        const lintRule = this.webpackConfig.module.rule('lint')
+        
+        console.log('webpack config: ', this.webpackConfig.toConfig().module.rules);
+
     }
 
     async registerHooks() {

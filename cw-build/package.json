@@ -19,7 +19,8 @@
     "fast-glob": "^3.2.11",
     "inquirer": "^8.2.4",
     "npmlog": "^6.0.2",
-    "semver": "^7.3.7"
+    "semver": "^7.3.7",
+    "webpack-chain": "^6.5.1"
   },
   "devDependencies": {
     "@types/inquirer": "^8.2.1"
