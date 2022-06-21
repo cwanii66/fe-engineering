@@ -32,7 +32,7 @@ export default {
         //     } 
         // ],
         ['plugin', (webpackConfig) => {
-            console.log('testHook', webpackConfig?.toConfig())
+            // console.log('testHook', webpackConfig?.toConfig())
         }]
     ]
 }

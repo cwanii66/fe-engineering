@@ -12,6 +12,8 @@ const HOOK_KEYS = [
 
 class Service {
     constructor(opts) {
+        log.verbose('Service', opts);
+
         this.args = opts;
         this.config = {};
         this.hooks = {};  // { <string>: [ fn,fn, ...] }
@@ -21,18 +23,37 @@ class Service {
         this.internalValue = {}; // basic of inter-communication among plugins
     }
     
-    async start() {
+    start = async () => {
         await this.resolveConfig();
         await this.registerHooks();
-        await this.emitHooks(constant.HOOK_START, 'hook', 'start'); // hook -> start service
+        // await this.emitHooks(constant.HOOK_START, 'hook', 'start'); // hook -> start service
         await this.registerPlugin();
         await this.execPlugin();
         await this.initWebpack();
 
+        console.log(this.webpack);
     }
 
     initWebpack = async () => {
-
+        // 从 config 中获取 CustomWebpackPath 属性
+        const { customWebpackPath } = this.args;
+        if (customWebpackPath) {
+            // CunstomWebpackPath 存在时, 使用该地址引用webpack
+            if (fs.existsSync(customWebpackPath)) {
+                let p = customWebpackPath;
+                if (!path.isAbsolute(p)) {
+                    p = path.resolve(p)
+                }
+                this.webpack = require.resolve(p);
+            }
+        } else {
+            // 否则使用 node_modules 中的 webpack
+            this.webpack = require.resolve('webpack', {
+                paths: [
+                    path.resolve(process.cwd(), 'node_modules'),
+                ]
+            });
+        }
     }
 
     resolveConfig = async () => {

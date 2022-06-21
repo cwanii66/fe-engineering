@@ -7,12 +7,16 @@ const { getConfigFile } = require('../utils/index');
 let child;
 
 function runServer(arg = {}) {
-    const { config = '' } = arg;
+    const { config = '', customWebpackPath = '' } = arg;
     // 启动webpack服务
 
     const scriptPath = path.resolve(__dirname, './devService.js');
     // fork 出来的child process支持内置通信通道
-    child = cp.fork(scriptPath, ['--port 8080', `--config ${config}`]);
+    child = cp.fork(scriptPath, [
+        '--port 8080', 
+        `--config ${config}`, 
+        `--customWebpackPath ${customWebpackPath}`
+    ]);
 
     child.on('exit', (code) => {
         if (code) {

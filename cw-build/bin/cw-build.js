@@ -35,12 +35,15 @@ function checkDebug() {
             .command('start')
             .description('start cw-build server')
             .addOption(new Option('-c, --config <config>', 'config path'))
+            .addOption(new Option('--custom-webpack-path <customWebpackPath>', 'custom webpack path').hideHelp(true))
             .allowUnknownOption()
             .action(startServer)
 
         program
             .command('build')
             .description('build project with cw-build')
+            .option('-c --config <config>', 'config path')
+            .option('--custom-webpack-path <customWebpackPath>', 'custom webpack path')
             .allowUnknownOption()
             .action(startBuild)
             

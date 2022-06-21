@@ -1,6 +1,7 @@
 const detectPort = require('detect-port');
 const inquirer = require('inquirer');
 const Service = require('../service/Service');
+const log = require('../utils/log');
 
 (async () => {
     const DEDAULT_PORT = 8000;
@@ -12,9 +13,13 @@ const Service = require('../service/Service');
         const repalceKey = paramArr[0].replace('--', '');
         paramObj[repalceKey] = paramArr[1];
     });
-    // console.log(paramObj)
     
-    const { config = '' } = paramObj;
+    log.verbose('DevService', paramObj);
+
+    const { 
+        config = '', 
+        customWebpackPath = '' 
+    } = paramObj;
     let defaultPort = Number(paramObj['port']) || DEDAULT_PORT;
     
     try {
@@ -36,7 +41,8 @@ const Service = require('../service/Service');
         } 
         const args = {
             port: newPort,
-            config
+            config,
+            customWebpackPath
         };
         process.env.NODE_ENV = 'development';
         const service = new Service(args);
