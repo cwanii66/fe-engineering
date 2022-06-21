@@ -6,7 +6,8 @@ const { getConfigFile, loadModule } = require('../utils/index');
 const constant = require('./const');
 
 const HOOK_KEYS = [
-    constant.HOOK_START
+    constant.HOOK_START,
+    constant.HOOK_PLUGIN
 ]; // allowed hooks
 
 class Service {
@@ -27,7 +28,7 @@ class Service {
         await this.registerPlugin();
         await this.execPlugin();
 
-        console.log(this.webpackConfig.toConfig());
+        // console.log(this.webpackConfig.toConfig());
     }
 
     async resolveConfig() {
@@ -116,7 +117,7 @@ class Service {
         }
     }
 
-    async emitHooks(key, ...args) {
+    emitHooks = async (key, ...args) => {
         const hooks = this.hooks[key];
         try {
             for (let i = 0, hook; hook = hooks[i++]; ) {

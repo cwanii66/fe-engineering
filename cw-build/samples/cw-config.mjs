@@ -4,6 +4,7 @@ export default {
     plugins: function() {
         return [
             ['cw-build-test', { a: 1, b: 2 }],
+            
             function(api, options) {
                 const config = api.getWebpackConfig();
                 config.module
@@ -19,7 +20,7 @@ export default {
                                 semi: 'on'
                             }
                         })
-                console.log('anonymous plugin', config.toConfig(), options);
+                // console.log('anonymous plugin', config.toConfig(), options);
             }
         ]
     },
@@ -30,5 +31,8 @@ export default {
         //         console.log('start', args);
         //     } 
         // ],
+        ['plugin', (webpackConfig) => {
+            console.log('testHook', webpackConfig?.toConfig())
+        }]
     ]
 }
