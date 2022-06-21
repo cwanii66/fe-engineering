@@ -26,6 +26,8 @@ class Service {
         await this.emitHooks(constant.HOOK_START, 'hook', 'start'); // hook -> start service
         await this.registerPlugin();
         await this.execPlugin();
+
+        console.log(this.webpackConfig.toConfig());
     }
 
     async resolveConfig() {
@@ -83,7 +85,10 @@ class Service {
         this.webpackConfig
                     .plugin('clean')
                     .use('webpack-chain', [{ root: '/dir' }])
-    }
+        this.webpackConfig
+                    .plugins
+                    .clear()
+    }   
 
     async registerHooks() {
         // [ ['init', function() {}], ['init', function() {}] ]
@@ -169,15 +174,15 @@ class Service {
         }
     }
 
-    getWebpackConfig() {
+    getWebpackConfig = () => {
         return this.webpackConfig;
     }
 
-    setValue(key, value) {
+    setValue = (key, value) => {
         this.internalValue[key] = value;
     }
 
-    getValue(key) {
+    getValue = (key) => {
         return this.internalValue[key];
     }
 }
