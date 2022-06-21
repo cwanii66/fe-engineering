@@ -4,6 +4,7 @@ const WebpackChain = require('webpack-chain');
 const log = require('../utils/log');
 const { getConfigFile, loadModule } = require('../utils/index');
 const constant = require('./const');
+const InitPlugin = require('../../plugins/InitPlugin');
 
 const HOOK_KEYS = [
     constant.HOOK_START,
@@ -30,8 +31,10 @@ class Service {
         await this.registerPlugin();
         await this.execPlugin();
         await this.initWebpack();
-
-        console.log(this.webpack);
+        // 完成 webpack配置(借助plugin， webpack.config.js)
+        // 完成webpack-dev-server
+        
+        // log.verbose('webpack path: ', this.webpack);
     }
 
     initWebpack = async () => {
@@ -156,6 +159,12 @@ class Service {
 
     registerPlugin = async () => {
         let { plugins } = this.config;
+        const builtInPlugins = [ InitPlugin ];
+        builtInPlugins.forEach((plugin) => {
+            this.plugins.push({
+                mod: plugin
+            });
+        });
         if (plugins) {
             if (typeof plugins === 'function') {
                 plugins = plugins();

@@ -20,7 +20,7 @@ export default {
                                 semi: 'on'
                             }
                         })
-                // console.log('anonymous plugin', config.toConfig(), options);
+                console.log('anonymous plugin', config.toConfig(), options);
             }
         ]
     },
