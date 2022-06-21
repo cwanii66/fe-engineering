@@ -27,11 +27,15 @@ class Service {
         await this.emitHooks(constant.HOOK_START, 'hook', 'start'); // hook -> start service
         await this.registerPlugin();
         await this.execPlugin();
+        await this.initWebpack();
 
-        // console.log(this.webpackConfig.toConfig());
     }
 
-    async resolveConfig() {
+    initWebpack = async () => {
+
+    }
+
+    resolveConfig = async () => {
         const { config } = this.args;
         let configFilePath = '';
 
@@ -91,7 +95,7 @@ class Service {
                     .clear()
     }   
 
-    async registerHooks() {
+    registerHooks = async () => {
         // [ ['init', function() {}], ['init', function() {}] ]
         const { hooks } = this.config;
         if (hooks && hooks.length > 0) {
@@ -129,7 +133,7 @@ class Service {
         
     }
 
-    async registerPlugin() {
+    registerPlugin = async () => {
         let { plugins } = this.config;
         if (plugins) {
             if (typeof plugins === 'function') {
@@ -157,7 +161,7 @@ class Service {
         }
     }
 
-    async execPlugin() {
+    execPlugin = async () => {
         for (const plugin of this.plugins) {
             const { mod, params = {} } = plugin;
             if (!mod) continue;
