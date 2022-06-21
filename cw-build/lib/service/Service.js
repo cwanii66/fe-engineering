@@ -83,40 +83,8 @@ class Service {
 
         // Instantiate the configuration with a new API
         this.webpackConfig = new WebpackChain();
-
         // Make configuration change using the chain API
         // Every API call tracks a change to the stored configuration
-
-        this.webpackConfig
-            .entry('main')
-                .add('src/index.js')
-                .end()
-            .output
-                .path('dist')
-                .filename('[name].bundle.js')
-        this.webpackConfig.module
-                .rule('lint')
-                    .test(/\.js$/)
-                    .include
-                        .add('src')
-                        .end()
-                    .exclude
-                        .add('node_modules')
-                        .end()
-                .use('eslint')
-                    .loader('eslint-loader')
-                    .options({
-                        rules: {
-                            semi: 'off'
-                        }
-                    })
-        
-        this.webpackConfig
-                    .plugin('clean')
-                    .use('webpack-chain', [{ root: '/dir' }])
-        this.webpackConfig
-                    .plugins
-                    .clear()
     }   
 
     registerHooks = async () => {
