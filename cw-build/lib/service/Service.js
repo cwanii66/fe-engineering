@@ -57,6 +57,8 @@ class Service {
                 ]
             });
         }
+        log.verbose('webpack path: ', this.webpack);
+        log.verbose('webpack config: ', this.webpackConfig.toConfig());
     }
 
     resolveConfig = async () => {
