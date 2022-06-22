@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = function(api, options) {
@@ -105,34 +107,40 @@ module.exports = function(api, options) {
         .plugin('CleanPlugin')
         .use(CleanWebpackPlugin)
         
-    
-    // plugins: [
-    //     new HtmlWebpackPlugin({
-    //         template: path.resolve(__dirname, '../src/index.html'),
-    //         filename: 'index.html',
-    //         chunks: ['index']
-    //     }),
-    //     new HtmlWebpackPlugin({
-    //         filename: 'login.html',
-    //         template: path.resolve(__dirname, '../src/login.html'),
-    //         chunks: ['login']
-    //     }),
-    //     new webpack.ProvidePlugin({
-    //         $: 'jquery',
-    //         jQuery: 'jquery'
-    //     }),
-    //     new CopyPlugin({
-    //         patterns: [
-    //             {
-    //                 from: path.resolve(__dirname, '../src/img'),
-    //                 to: path.resolve(__dirname, '../dist/img')
-    //             },
-    //         ]
-    //     }),
-    //     new MiniCssExtractPlugin({
-    //         filename: 'css/[name].css',
-    //         chunkFilename: 'css/[name].chunk.css'
-    //     }),
-    //     new CleanWebpackPlugin(), // 清楚dist目录
-    // ],
+    config.optimization
+        .minimize(true)
+        .usedExports(true)
+    config.optimization
+        .minimizer('TerserPlugin')
+        .use(TerserPlugin, [
+            {
+                terserOptions: {
+                    sourceMap: true
+                }
+            }
+        ]);
+    config.optimization
+        .minimizer('CssMinimizerPlugin')
+        .use(CssMinimizerPlugin, []);
+    config.optimization
+        .splitChunks({
+            chunks: 'all',
+            minSize: 20000, // 压缩前的最小模块大小
+            name: 'common',
+            cacheGroups: {
+                // 默认的规则不会打包，需要单独定义
+                jquery: {
+                    // 抽离jquery
+                    name: 'jquery',
+                    test: /jquery\.js/,
+                    chunks: 'all',
+                },
+                'lodash-es': {
+                    name: 'lodash-es',
+                    test: /lodash-es/,
+                    chunks: 'all'
+                }
+            }
+        });
+  
 }
