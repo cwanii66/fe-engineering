@@ -3,7 +3,7 @@ export default {
     entry: 'src/main.js',
     plugins: function() {
         return [
-            ['cw-build-test', { a: 1, b: 2 }],
+            ['./plugins/cw-build-plugin.js', { a: 1, b: 2 }],
             
             function(api, options) {
                 // console.log('anonymous plugin', options);

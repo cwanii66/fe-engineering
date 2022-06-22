@@ -57,8 +57,10 @@ class Service {
                 ]
             });
         }
-        log.verbose('webpack path: ', this.webpack);
-        log.verbose('webpack config: ', this.webpackConfig.toConfig());
+
+        log.verbose('webpack path: ', this.webpack, '\n\n');
+        log.verbose('webpack config: ', this.webpackConfig.toConfig(), '\n\n');
+        log.verbose('webpack loader: ', this.webpackConfig.toConfig().module.rules)
     }
 
     resolveConfig = async () => {
@@ -130,6 +132,7 @@ class Service {
     registerPlugin = async () => {
         let { plugins } = this.config;
         const builtInPlugins = [ InitPlugin ];
+
         builtInPlugins.forEach((plugin) => {
             this.plugins.push({
                 mod: plugin
