@@ -31,10 +31,21 @@ class Service {
         await this.registerPlugin();
         await this.execPlugin();
         await this.initWebpack();
-        // 完成 webpack配置(借助plugin， webpack.config.js)
-        // 完成webpack-dev-server
-        
-        // log.verbose('webpack path: ', this.webpack);
+        await this.startServer();
+    }
+
+    startServer = async () => {
+        let compiler;
+        try {
+            const webpack = require(this.webpack);
+            const webpackConfig = this.webpackConfig.toConfig();
+            compiler = webpack(webpackConfig, (err, stats) => {
+                console.log(err);
+                console.log(stats);
+            });
+        } catch(e) {
+            log.error('error: ', e)
+        }
     }
 
     initWebpack = async () => {
@@ -60,7 +71,6 @@ class Service {
 
         log.verbose('webpack path: ', this.webpack, '\n\n');
         log.verbose('webpack config: ', this.webpackConfig.toConfig(), '\n\n');
-        log.verbose('webpack loader: ', this.webpackConfig.toConfig().module.rules)
     }
 
     resolveConfig = async () => {

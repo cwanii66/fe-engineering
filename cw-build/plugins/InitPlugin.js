@@ -19,7 +19,7 @@ module.exports = function(api, options) {
 
     // 配置entry
     config.entry('index')
-        .add(path.resolve(dir, './src/index.js'))
+        .add(path.resolve(dir, './src/main.js'))
         .end();
     config.output
         .filename('js/[name].js')
@@ -71,45 +71,45 @@ module.exports = function(api, options) {
                 chunkFilename: 'css/[name].chunk.css'
             }
         ]);
-    config
-        .plugin('HtmlWebpackPlugin')
-        .use(HtmlWebpackPlugin, [
-            {
-                template: path.resolve(dir, './src/index.html'),
-                filename: 'index.html',
-                chunks: ['index']
-            },
-            {
-                template: path.resolve(dir, './src/login.html'),
-                filename: 'login.html',
-                chunks: ['login']
-            }
-        ]);
-    config
-        .plugin('ProvidePlugin')
-        .use(webpack.ProvidePlugin, [
-            {
-                '$': 'jquery',
-                'jQuery': 'jquery'
-            }
-        ]);
-    config
-        .plugin('CopyPlugin')
-        .use(CopyPlugin, [
-            {
-                patterns: [{
-                    from: path.resolve(dir, './src/img'),
-                    to: path.resolve(dir, './dist/img')
-                }] 
-            }
-        ]);
+    // config
+    //     .plugin('HtmlWebpackPlugin')
+    //     .use(HtmlWebpackPlugin, [
+    //         {
+    //             template: path.resolve(dir, './src/index.html'),
+    //             filename: 'index.html',
+    //             chunks: ['index']
+    //         },
+    //         {
+    //             template: path.resolve(dir, './src/login.html'),
+    //             filename: 'login.html',
+    //             chunks: ['login']
+    //         }
+    //     ]);
+    // config
+    //     .plugin('ProvidePlugin')
+    //     .use(webpack.ProvidePlugin, [
+    //         {
+    //             '$': 'jquery',
+    //             'jQuery': 'jquery'
+    //         }
+    //     ]);
+    // config
+    //     .plugin('CopyPlugin')
+    //     .use(CopyPlugin, [
+    //         {
+    //             patterns: [{
+    //                 from: path.resolve(dir, './src/img'),
+    //                 to: path.resolve(dir, './dist/img')
+    //             }] 
+    //         }
+    //     ]);
     config
         .plugin('CleanPlugin')
-        .use(CleanWebpackPlugin)
+        .use(CleanWebpackPlugin, []);
         
     config.optimization
         .minimize(true)
-        .usedExports(true)
+        .usedExports(true);
     config.optimization
         .minimizer('TerserPlugin')
         .use(TerserPlugin, [
