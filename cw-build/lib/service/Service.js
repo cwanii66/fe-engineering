@@ -40,12 +40,35 @@ class Service {
             const webpack = require(this.webpack);
             const webpackConfig = this.webpackConfig.toConfig();
             compiler = webpack(webpackConfig, (err, stats) => {
-                console.log(err);
-                console.log(stats);
+                // fatal! webpack config error handler
+                if (err) {
+                    log.err('ERROR!', err.stack || err);
+                    if (err.details) {
+                        log.err('ERROR DETAILS:', err.details);
+                    }
+                } else {
+                    // compile error handler
+                    const res = stats.toJson({ all: false, errors: true, warnings: true, timings: true });
+                    if (stats.hasErrors()) {
+                        log.error('COMPILER ERROR!');
+                        res.errors.forEach(error => {
+                            log.error('ERROR MESSAGE', error.message); // parse error handler
+                        });
+                    } else if (stats.hasWarnings()) {
+                        // compile warnings handler
+                        res.warnings.forEach(warning => {
+                            log.warn('WARNING MESSAGE', warning.message);
+                        })
+                        log.warn('WARNING!', )
+                    } else {
+                        log.info('COMPILE SUCCESS!', `compile finished in ${res.time}ms`);
+                    }
+                }
             });
         } catch(e) {
             log.error('error: ', e)
         }
+
     }
 
     initWebpack = async () => {

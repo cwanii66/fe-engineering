@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": " cw-build start --debug",
+    "dev": " cw-build start",
     "build": "cross-env CW_BUILD_MODE=production cw-build build"
   },
   "keywords": [],
