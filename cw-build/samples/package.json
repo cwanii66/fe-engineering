@@ -11,10 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "css-loader": "^6.7.1",
-    "ejs-loader": "^0.5.0",
-    "fast-glob": "^3.2.11",
-    "mini-css-extract-plugin": "^2.6.1"
+    "fast-glob": "^3.2.11"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

@@ -1,5 +1,9 @@
 const path = require('path');
-// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = function(api, options) {
     const { getWebpackConfig } = api;
@@ -27,7 +31,7 @@ module.exports = function(api, options) {
                 .add(/node_modules/)
                 .end()
             .use('mini-css')
-                .loader('css-loader')
+                .loader(MiniCssExtractPlugin.loader)
                 .end()
             .use('css-loader')
                 .loader('css-loader');
@@ -57,5 +61,78 @@ module.exports = function(api, options) {
                     esModule: false,
                 });
 
+    config
+        .plugin('mini-css')
+        .use(MiniCssExtractPlugin, [
+            {
+                filename: 'css/[name].css',
+                chunkFilename: 'css/[name].chunk.css'
+            }
+        ]);
+    config
+        .plugin('HtmlWebpackPlugin')
+        .use(HtmlWebpackPlugin, [
+            {
+                template: path.resolve(dir, './src/index.html'),
+                filename: 'index.html',
+                chunks: ['index']
+            },
+            {
+                template: path.resolve(dir, './src/login.html'),
+                filename: 'login.html',
+                chunks: ['login']
+            }
+        ]);
+    config
+        .plugin('ProvidePlugin')
+        .use(webpack.ProvidePlugin, [
+            {
+                '$': 'jquery',
+                'jQuery': 'jquery'
+            }
+        ]);
+    config
+        .plugin('CopyPlugin')
+        .use(CopyPlugin, [
+            {
+                patterns: [{
+                    from: path.resolve(dir, './src/img'),
+                    to: path.resolve(dir, './dist/img')
+                }] 
+            }
+        ]);
+    config
+        .plugin('CleanPlugin')
+        .use(CleanWebpackPlugin)
+        
     
+    // plugins: [
+    //     new HtmlWebpackPlugin({
+    //         template: path.resolve(__dirname, '../src/index.html'),
+    //         filename: 'index.html',
+    //         chunks: ['index']
+    //     }),
+    //     new HtmlWebpackPlugin({
+    //         filename: 'login.html',
+    //         template: path.resolve(__dirname, '../src/login.html'),
+    //         chunks: ['login']
+    //     }),
+    //     new webpack.ProvidePlugin({
+    //         $: 'jquery',
+    //         jQuery: 'jquery'
+    //     }),
+    //     new CopyPlugin({
+    //         patterns: [
+    //             {
+    //                 from: path.resolve(__dirname, '../src/img'),
+    //                 to: path.resolve(__dirname, '../dist/img')
+    //             },
+    //         ]
+    //     }),
+    //     new MiniCssExtractPlugin({
+    //         filename: 'css/[name].css',
+    //         chunkFilename: 'css/[name].chunk.css'
+    //     }),
+    //     new CleanWebpackPlugin(), // 清楚dist目录
+    // ],
 }
