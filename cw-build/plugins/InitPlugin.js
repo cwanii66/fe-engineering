@@ -71,6 +71,15 @@ module.exports = function(api, options) {
                 chunkFilename: 'css/[name].chunk.css'
             }
         ]);
+
+    config.plugin('HtmlWebpackPlugin')
+        .use(HtmlWebpackPlugin, [
+            {
+                template: path.resolve(dir, './public/index.html'),
+                filename: 'index.html',
+                chunks: ['index']
+            }
+        ]);
     // config
     //     .plugin('HtmlWebpackPlugin')
     //     .use(HtmlWebpackPlugin, [

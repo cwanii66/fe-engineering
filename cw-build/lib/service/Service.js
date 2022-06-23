@@ -198,16 +198,16 @@ class Service {
     }
 
     execPlugin = async () => {
+        const API = {
+            getWebpackConfig: this.getWebpackConfig,
+            emitHooks: this.emitHooks,
+            setValue: this.setValue,
+            getValue: this.getValue,
+            log
+        };
         for (const plugin of this.plugins) {
             const { mod, params = {} } = plugin;
             if (!mod) continue;
-            const API = {
-                getWebpackConfig: this.getWebpackConfig,
-                emitHooks: this.emitHooks,
-                setValue: this.setValue,
-                getValue: this.getValue,
-                log
-            };
             const options = {
                 ...params,
             };
