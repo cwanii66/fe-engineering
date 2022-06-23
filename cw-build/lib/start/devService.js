@@ -25,15 +25,13 @@ const log = require('../utils/log');
     try {
         const newPort = await detectPort(defaultPort);
         if (newPort !== defaultPort) {
-            console.log(`port: ${defaultPort} was occupied, try port: ${newPort}`);
-
             // 命令行交互
             const questions = {
                 type: 'confirm',
                 name: 'answer',
                 message: `port: ${defaultPort} was occupied, try port: ${newPort}?`,
             };
-            const answer = await inquirer.prompt(questions).answer;
+            const answer = (await inquirer.prompt(questions)).answer;
             
             if (!answer) {
                 process.exit(1);

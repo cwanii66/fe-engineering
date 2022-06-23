@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const WebpackDevServer = require('webpack-dev-server');
 const WebpackChain = require('webpack-chain');
 const log = require('../utils/log');
 const { getConfigFile, loadModule } = require('../utils/index');
@@ -36,6 +37,8 @@ class Service {
 
     startServer = async () => {
         let compiler;
+        let devServer;
+        let serverConfig;
         try {
             const webpack = require(this.webpack);
             const webpackConfig = this.webpackConfig.toConfig();
@@ -65,6 +68,34 @@ class Service {
                     }
                 }
             });
+            serverConfig = {
+                port: this.args.port || 8080,
+                host: this.args.host || '0.0.0.0',
+                https: this.args.https || false,
+            };
+            if (WebpackDevServer.getFreePort()) {
+                devServer = new WebpackDevServer(serverConfig, compiler);
+            } else {
+                devServer = new WebpackDevServer(compiler, serverConfig);
+            }
+            function devServerErrorHandler(err) {
+                if (err) {
+                    log.error('WEBPACK-DEV-SERVER ERROR!');
+                    log.error('ERROR MESSAGE', err.toString());
+                } else {
+                    log.info('WEBPACK-DEV-SERVER LAUNCH SUCCESS!');
+                }
+            }
+            if (devServer.startCallback) {
+                devServer.startCallback((err) => {
+                    devServerErrorHandler(err);
+                });
+            } else {
+                devServer.listen(serverConfig.port, serverConfig.host, (err) => {
+                    devServerErrorHandler(err);
+                });
+            }
+            
         } catch(e) {
             log.error('error: ', e)
         }

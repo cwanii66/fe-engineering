@@ -22,7 +22,7 @@ const config = {
             directory: path.resolve(__dirname, '../dist')
         },
         compress: true,
-        port: 9000,
+        port: 8080,
         hot: true,
     },
     module: {
