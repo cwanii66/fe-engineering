@@ -95,7 +95,6 @@ class Service {
                     devServerErrorHandler(err);
                 });
             }
-            
         } catch(e) {
             log.error('error: ', e)
         }

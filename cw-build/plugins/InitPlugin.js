@@ -81,20 +81,6 @@ module.exports = function(api, options) {
             }
         ]);
     // config
-    //     .plugin('HtmlWebpackPlugin')
-    //     .use(HtmlWebpackPlugin, [
-    //         {
-    //             template: path.resolve(dir, './src/index.html'),
-    //             filename: 'index.html',
-    //             chunks: ['index']
-    //         },
-    //         {
-    //             template: path.resolve(dir, './src/login.html'),
-    //             filename: 'login.html',
-    //             chunks: ['login']
-    //         }
-    //     ]);
-    // config
     //     .plugin('ProvidePlugin')
     //     .use(webpack.ProvidePlugin, [
     //         {
@@ -152,4 +138,5 @@ module.exports = function(api, options) {
             }
         });
   
+    config.watch(true);
 }
