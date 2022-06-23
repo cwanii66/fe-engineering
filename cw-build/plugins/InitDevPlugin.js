@@ -17,6 +17,7 @@ module.exports = function(api, options) {
     config.entry('index')
         .add(path.resolve(dir, './src/index.js'))
         .end();
+    console.log('index entry: ', config.entry('index'))
     config.output
         .filename('js/[name].js')
         .path(path.resolve(dir, './dist'));
@@ -64,7 +65,6 @@ module.exports = function(api, options) {
                 chunks: ['index']
             }
         ]);
-
     config
         .plugin('CleanPlugin')
         .use(CleanWebpackPlugin, []);

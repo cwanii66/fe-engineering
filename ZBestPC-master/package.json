@@ -10,7 +10,8 @@
     "build": "webpack --config build/webpack.config.js",
     "build:vue": "webpack --config build/webpack.vue.config.js",
     "build:mpa": "webpack --config build/webpack.vue.mpa.config.js",
-    "start:cw": "cw-build start --debug"
+    "start:cw": "cw-build start",
+    "start:cw-vue": "cw-build start --config cw-config-vue.js"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",

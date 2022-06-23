@@ -46,9 +46,9 @@ class Service {
             compiler = webpack(webpackConfig, (err, stats) => {
                 // fatal! webpack config error handler
                 if (err) {
-                    log.err('ERROR!', err.stack || err);
+                    log.error('ERROR!', err.stack || err);
                     if (err.details) {
-                        log.err('ERROR DETAILS:', err.details);
+                        log.error('ERROR DETAILS:', err.details);
                     }
                 } else {
                     // compile error handler

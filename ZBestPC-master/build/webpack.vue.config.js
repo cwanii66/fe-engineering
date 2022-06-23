@@ -22,7 +22,7 @@ const config = {
             directory: path.resolve(__dirname, '../dist')
         },
         compress: true,
-        port: 8080,
+        port: 9000,
         hot: true,
     },
     module: {
@@ -75,8 +75,8 @@ const config = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../public/index.html'),
-            filename: 'index.html',
+            template: path.resolve(__dirname, '../public/index-vue.html'),
+            filename: 'index-vue.html',
             chunks: ['main']
         }),
         new CopyPlugin({

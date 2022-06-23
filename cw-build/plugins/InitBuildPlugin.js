@@ -20,6 +20,7 @@ module.exports = function(api, options) {
     config.entry('index')
         .add(path.resolve(dir, './src/index.js'))
         .end();
+
     config.output
         .filename('js/[name].js')
         .path(path.resolve(dir, './dist'));
