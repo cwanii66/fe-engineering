@@ -15,7 +15,7 @@ module.exports = function(api, options) {
 
     // 配置entry
     config.entry('index')
-        .add(path.resolve(dir, './src/main.js'))
+        .add(path.resolve(dir, './src/index.js'))
         .end();
     config.output
         .filename('js/[name].js')
@@ -46,18 +46,6 @@ module.exports = function(api, options) {
     config.module.rule('asset').set('generator', {
         filename: 'images/[name].[hash:6][ext]',
     });
-
-    config.module
-        .rule('ejs')
-            .test(/\.ejs/)
-            .exclude
-                .add(/node_modules/)
-                .end()
-            .use('ejs-loader')
-                .loader('ejs-loader')
-                .options({
-                    esModule: false,
-                });
 
     config
         .plugin('mini-css')

@@ -145,7 +145,7 @@ class Service {
             this.config = await loadModule(configFilePath);
             log.verbose('config', this.config);
         } else {
-            console.log('config file does not exist, end process...');
+            log.error('config file does not exist, end process...');
             process.exit(1);
         }
 

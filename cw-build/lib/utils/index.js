@@ -13,7 +13,7 @@ function getConfigFile(cwd = process.cwd()) {
 
 /**
  * @param {*} modulePath
- * @returns {function}
+ * @returns {module}
  * @description pass into a path string, return a function module
  */
 async function loadModule(modulePath) {

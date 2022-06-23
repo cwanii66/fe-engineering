@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -19,7 +18,7 @@ module.exports = function(api, options) {
 
     // 配置entry
     config.entry('index')
-        .add(path.resolve(dir, './src/main.js'))
+        .add(path.resolve(dir, './src/index.js'))
         .end();
     config.output
         .filename('js/[name].js')
@@ -80,24 +79,7 @@ module.exports = function(api, options) {
                 chunks: ['index']
             }
         ]);
-    // config
-    //     .plugin('ProvidePlugin')
-    //     .use(webpack.ProvidePlugin, [
-    //         {
-    //             '$': 'jquery',
-    //             'jQuery': 'jquery'
-    //         }
-    //     ]);
-    // config
-    //     .plugin('CopyPlugin')
-    //     .use(CopyPlugin, [
-    //         {
-    //             patterns: [{
-    //                 from: path.resolve(dir, './src/img'),
-    //                 to: path.resolve(dir, './dist/img')
-    //             }] 
-    //         }
-    //     ]);
+
     config
         .plugin('CleanPlugin')
         .use(CleanWebpackPlugin, []);
