@@ -43,7 +43,7 @@ const log = require('../utils/log');
             customWebpackPath
         };
         process.env.NODE_ENV = 'development';
-        const service = new Service(args);
+        const service = new Service('start', args);
         await service.start();
 
     } catch(e) {

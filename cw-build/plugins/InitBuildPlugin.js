@@ -103,7 +103,6 @@ module.exports = function(api, options) {
         .use(CleanWebpackPlugin, []);
         
     config.optimization
-        .minimize(true)
         .usedExports(true);
     config.optimization
         .minimizer('TerserPlugin')

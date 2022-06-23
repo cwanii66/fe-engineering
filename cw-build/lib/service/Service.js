@@ -5,7 +5,8 @@ const WebpackChain = require('webpack-chain');
 const log = require('../utils/log');
 const { getConfigFile, loadModule } = require('../utils/index');
 const constant = require('./const');
-const InitPlugin = require('../../plugins/InitPlugin');
+const InitDevPlugin = require('../../plugins/InitDevPlugin');
+const InitBuildPlugin = require('../../plugins/InitBuildPlugin');
 
 const HOOK_KEYS = [
     constant.HOOK_START,
@@ -13,9 +14,9 @@ const HOOK_KEYS = [
 ]; // allowed hooks
 
 class Service {
-    constructor(opts) {
+    constructor(cmd, opts) {
         log.verbose('Service', opts);
-
+        this.cmd = cmd;
         this.args = opts;
         this.config = {};
         this.hooks = {};  // { <string>: [ fn,fn, ...] }
@@ -194,7 +195,8 @@ class Service {
 
     registerPlugin = async () => {
         let { plugins } = this.config;
-        const builtInPlugins = [ InitPlugin ];
+
+        const builtInPlugins = (this.cmd === 'start') ? [ InitDevPlugin ] : [ InitBuildPlugin ];
 
         builtInPlugins.forEach((plugin) => {
             this.plugins.push({
