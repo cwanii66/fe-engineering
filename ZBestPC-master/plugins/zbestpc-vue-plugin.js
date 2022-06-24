@@ -11,16 +11,10 @@ module.exports = function(api, options) {
     const webpackConfig = getWebpackConfig();
 
     webpackConfig.entry('index')
-        .delete(path.resolve(dir, './src/index.js'))
+        .clear()
         .add(path.resolve(dir, './src/main.js'))
         .end()
 
-    webpackConfig.module
-        .rule('vue')
-        .test(/\.vue$/)
-        .use('vue-loader')
-            .loader('vue-loader');
-    
     webpackConfig.optimization
         .minimize(true);
     webpackConfig.optimization
@@ -46,20 +40,17 @@ module.exports = function(api, options) {
     webpackConfig.plugin('HtmlWebpackPlugin')
         .set('args', [
             {
-                template: path.resolve(dir, './public/index-vue.html'),
-                filename: 'index-vue.html',
-                chunks: ['main']
+                template: path.resolve(dir, './public/index.html'),
+                filename: 'index.html',
+                chunks: ['main', 'common']
             }
         ]);
-
-    webpackConfig.plugin('VueLoaderPlugin')
-        .use(VueLoaderPlugin, []);
 
     webpackConfig.plugin('ProvidePlugin')
         .use(webpack.ProvidePlugin, [
             {
-                '$': 'jquery',
-                'jQuery': 'jquery'
+                $: 'jquery',
+                jQuery: 'jquery'
             }
         ]);
 
@@ -72,5 +63,7 @@ module.exports = function(api, options) {
                 }],
             }
         ]);
+    webpackConfig.plugin('VueLoaderPlugin')
+        .use(VueLoaderPlugin);
 
 }

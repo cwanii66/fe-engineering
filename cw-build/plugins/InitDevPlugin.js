@@ -17,10 +17,15 @@ module.exports = function(api, options) {
     config.entry('index')
         .add(path.resolve(dir, './src/index.js'))
         .end();
-    console.log('index entry: ', config.entry('index'))
     config.output
         .filename('js/[name].js')
         .path(path.resolve(dir, './dist'));
+    
+    config.module
+        .rule('vue')
+        .test(/\.vue$/)
+        .use('vue-loader')
+            .loader('vue-loader');
     
     // 设置loader
     config.module

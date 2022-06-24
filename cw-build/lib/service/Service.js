@@ -70,6 +70,9 @@ class Service {
                 }
             });
             serverConfig = {
+                static: {
+                    directory: path.resolve(process.cwd(), './dist'),
+                },
                 port: this.args.port || 8080,
                 host: this.args.host || '0.0.0.0',
                 https: this.args.https || false,
