@@ -36,6 +36,7 @@ function checkDebug() {
             .description('start cw-build server')
             .addOption(new Option('-c, --config <config>', 'config path'))
             .addOption(new Option('--custom-webpack-path <customWebpackPath>', 'custom webpack path').hideHelp(true))
+            .addOption(new Option('--stop-build', 'stop service'))
             .allowUnknownOption()
             .action(startServer)
 

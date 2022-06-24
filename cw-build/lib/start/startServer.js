@@ -7,7 +7,7 @@ const { getConfigFile } = require('../utils/index');
 let child;
 
 function runServer(arg = {}) {
-    const { config = '', customWebpackPath = '' } = arg;
+    const { config = '', customWebpackPath = '', stopBuild = false } = arg;
     // 启动webpack服务
 
     const scriptPath = path.resolve(__dirname, './devService.js');
@@ -15,7 +15,8 @@ function runServer(arg = {}) {
     child = cp.fork(scriptPath, [
         '--port 8080', 
         `--config ${config}`, 
-        `--customWebpackPath ${customWebpackPath}`
+        `--customWebpackPath ${customWebpackPath}`,
+        `--stop-build ${stopBuild}`
     ]);
 
     child.on('exit', (code) => {

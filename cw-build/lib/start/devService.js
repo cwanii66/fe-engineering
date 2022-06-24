@@ -18,7 +18,7 @@ const log = require('../utils/log');
 
     const { 
         config = '', 
-        customWebpackPath = '' 
+        customWebpackPath = '',
     } = paramObj;
     let defaultPort = Number(paramObj['port']) || DEDAULT_PORT;
     
@@ -40,7 +40,8 @@ const log = require('../utils/log');
         const args = {
             port: newPort,
             config,
-            customWebpackPath
+            customWebpackPath,
+            stopBuild: paramObj['stop-build'] || false
         };
         process.env.NODE_ENV = 'development';
         const service = new Service('start', args);

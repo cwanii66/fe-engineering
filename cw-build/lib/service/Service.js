@@ -32,8 +32,10 @@ class Service {
         // await this.emitHooks(constant.HOOK_START, 'hook', 'start'); // hook -> start service
         await this.registerPlugin();
         await this.execPlugin();
-        await this.initWebpack();
-        await this.startServer();
+        if (!this.args.stopBuild) {
+            await this.initWebpack();
+            await this.startServer();
+        }
     }
 
     startServer = async () => {
