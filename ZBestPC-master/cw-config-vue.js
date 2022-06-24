@@ -3,7 +3,7 @@
 module.exports = {
     plugins: function() {
         return [
-            './plugins/zbestpc-vue-plugin.js',
+            './plugins/zbestpc-common-plugin.js',
         ]
     },
     hooks: [
