@@ -82,3 +82,6 @@ assert.deepStrictEqual(codeGenerator(newAst), output, 'Code Generator should tur
 assert.deepStrictEqual(compiler(input), output, 'Compiler should turn `input` into `output`');
 
 console.log('All Passed!');
+
+console.log('(minus 6 4)');
+console.log(compiler('(minus 6 4)'))
