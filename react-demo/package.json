@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babel:ts": "babel --watch src/ts --out-dir lib --extensions .ts"
+    "babel:ts": "babel --watch src/ts --out-dir lib --extensions .ts",
+    "tsx": "babel --watch src/react --out-dir lib --extensions tsx"
   },
   "keywords": [],
   "author": "",
