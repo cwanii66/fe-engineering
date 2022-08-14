@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "rollup-plugin-visualizer": "^5.7.1",
     "sass": "^1.54.4",
     "vite": "^3.0.7"
   },
