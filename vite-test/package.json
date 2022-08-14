@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "esbuild": "^0.15.2",
+    "lodash": "^4.17.21",
     "rollup-plugin-visualizer": "^5.7.1",
     "sass": "^1.54.4",
     "vite": "^3.0.7"
