@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
 
     entry: {
-        index: path.resolve(__dirname, 'index.js'),
+        index: path.resolve(__dirname, '_index.js'),
     },
 
     output: {

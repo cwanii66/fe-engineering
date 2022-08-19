@@ -4,18 +4,18 @@
 
 <script>
 export default {
-    data() {
+    components: {
+        
+    },
+    setup(props, ctx) {
+
         return {
-            value: Number(1),
+
         }
     }
 }
 </script>
 
-<style lang="css">
-
-</style>
-
-<style lang='scss'>
+<style>
 
 </style>

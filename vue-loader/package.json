@@ -5,12 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.my.js"
+    "build": "webpack --config webpack.config.my.js",
+    "build:vue": "webpack --config webpack.config.test.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vue-loader": "^17.0.0"
+    "html-webpack-plugin": "^5.5.0",
+    "vue-loader": "^17.0.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
   }
 }
